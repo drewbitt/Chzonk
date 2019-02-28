@@ -41,7 +41,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.leanback.app.BrowseSupportFragment
+import androidx.leanback.app.BrowseFragment
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
@@ -51,7 +51,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 /**
  * Loads a grid of cards with movies to browse.
  */
-class MainFragment : BrowseSupportFragment() {
+class MainFragment : BrowseFragment() {
 
     private val mHandler = Handler()
     private lateinit var mBackgroundManager: BackgroundManager
@@ -91,7 +91,7 @@ class MainFragment : BrowseSupportFragment() {
     private fun setupUIElements() {
         title = getString(R.string.browse_title)
         // over title
-        headersState = BrowseSupportFragment.HEADERS_ENABLED
+        headersState = BrowseFragment.HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true
 
         // set fastLane (or headers) background color

@@ -4,6 +4,9 @@
           package="com.teamb.testbegin">
 
     <uses-feature
+            android:name="android.hardware.microphone"
+            android:required="false" />
+    <uses-feature
             android:name="android.hardware.touchscreen"
             android:required="false"/>
     <uses-feature
@@ -11,7 +14,7 @@
             android:required="true"/>
 
     <application
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:banner="@drawable/banner"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
