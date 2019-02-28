@@ -18,8 +18,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.leanback.app.DetailsFragment
-import androidx.leanback.app.DetailsFragmentBackgroundController
 import androidx.leanback.widget.Action
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.ClassPresenterSelector
@@ -39,6 +37,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import android.util.Log
 import android.widget.Toast
+import androidx.leanback.app.DetailsSupportFragment
+import androidx.leanback.app.DetailsSupportFragmentBackgroundController
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
@@ -49,11 +49,11 @@ import com.bumptech.glide.request.target.SimpleTarget
  * A wrapper fragment for leanback details screens.
  * It shows a detailed view of video and its metadata plus related videos.
  */
-class VideoDetailsFragment : DetailsFragment() {
+class VideoDetailsFragment : DetailsSupportFragment() {
 
     private var mSelectedMovie: Movie? = null
 
-    private lateinit var mDetailsBackground: DetailsFragmentBackgroundController
+    private lateinit var mDetailsBackground: DetailsSupportFragmentBackgroundController
     private lateinit var mPresenterSelector: ClassPresenterSelector
     private lateinit var mAdapter: ArrayObjectAdapter
 
@@ -61,9 +61,9 @@ class VideoDetailsFragment : DetailsFragment() {
         Log.d(TAG, "onCreate DetailsFragment")
         super.onCreate(savedInstanceState)
 
-        mDetailsBackground = DetailsFragmentBackgroundController(this)
+        mDetailsBackground = DetailsSupportFragmentBackgroundController(this)
 
-        mSelectedMovie = activity.intent.getSerializableExtra(DetailsActivity.MOVIE) as Movie
+        mSelectedMovie = activity!!.intent.getSerializableExtra(DetailsActivity.MOVIE) as Movie
         if (mSelectedMovie != null) {
             mPresenterSelector = ClassPresenterSelector()
             mAdapter = ArrayObjectAdapter(mPresenterSelector)
@@ -100,9 +100,9 @@ class VideoDetailsFragment : DetailsFragment() {
     private fun setupDetailsOverviewRow() {
         Log.d(TAG, "doInBackground: " + mSelectedMovie?.toString())
         val row = DetailsOverviewRow(mSelectedMovie)
-        row.imageDrawable = ContextCompat.getDrawable(context, R.drawable.default_background)
-        val width = convertDpToPixel(context, DETAIL_THUMB_WIDTH)
-        val height = convertDpToPixel(context, DETAIL_THUMB_HEIGHT)
+        row.imageDrawable = ContextCompat.getDrawable(context!!, R.drawable.default_background)
+        val width = convertDpToPixel(context!!, DETAIL_THUMB_WIDTH)
+        val height = convertDpToPixel(context!!, DETAIL_THUMB_HEIGHT)
         Glide.with(context)
             .load(mSelectedMovie?.cardImageUrl)
             .centerCrop()
@@ -150,7 +150,7 @@ class VideoDetailsFragment : DetailsFragment() {
         // Set detail background.
         val detailsPresenter = FullWidthDetailsOverviewRowPresenter(DetailsDescriptionPresenter())
         detailsPresenter.backgroundColor =
-            ContextCompat.getColor(context, R.color.selected_background)
+            ContextCompat.getColor(context!!, R.color.selected_background)
 
         // Hook up transition element.
         val sharedElementHelper = FullWidthDetailsOverviewSharedElementHelper()
@@ -206,12 +206,12 @@ class VideoDetailsFragment : DetailsFragment() {
 
                 val bundle =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity,
+                        activity!!,
                         (itemViewHolder?.view as ImageCardView).mainImageView,
                         DetailsActivity.SHARED_ELEMENT_NAME
                     )
                         .toBundle()
-                activity.startActivity(intent, bundle)
+                activity!!.startActivity(intent, bundle)
             }
         }
     }
