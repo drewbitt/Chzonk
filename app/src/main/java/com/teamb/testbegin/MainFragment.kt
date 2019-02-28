@@ -14,7 +14,6 @@
 
 package com.teamb.testbegin
 
-import java.util.Collections
 import java.util.Timer
 import java.util.TimerTask
 
@@ -102,14 +101,14 @@ class MainFragment : BrowseFragment() {
     }
 
     private fun loadRows() {
-        val list = MovieList.list
+        val list : MutableList<Movie> = MovieList.list.toMutableList()
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
         val cardPresenter = CardPresenter()
 
         for (i in 0 until NUM_ROWS) {
             if (i != 0) {
-                Collections.shuffle(list)
+                list.shuffle()
             }
             val listRowAdapter = ArrayObjectAdapter(cardPresenter)
             for (j in 0 until NUM_COLS) {
@@ -150,7 +149,7 @@ class MainFragment : BrowseFragment() {
         ) {
 
             if (item is Movie) {
-                Log.d(TAG, "Item: " + item.toString())
+                Log.d(TAG, "Item: $item")
                 val intent = Intent(context, DetailsActivity::class.java)
                 intent.putExtra(DetailsActivity.MOVIE, item)
 
@@ -236,12 +235,12 @@ class MainFragment : BrowseFragment() {
     }
 
     companion object {
-        private val TAG = "MainFragment"
+        private const val TAG = "MainFragment"
 
-        private val BACKGROUND_UPDATE_DELAY = 300
-        private val GRID_ITEM_WIDTH = 200
-        private val GRID_ITEM_HEIGHT = 200
-        private val NUM_ROWS = 6
-        private val NUM_COLS = 15
+        private const val BACKGROUND_UPDATE_DELAY = 300
+        private const val GRID_ITEM_WIDTH = 200
+        private const val GRID_ITEM_HEIGHT = 200
+        private const val NUM_ROWS = 6
+        private const val NUM_COLS = 15
     }
 }

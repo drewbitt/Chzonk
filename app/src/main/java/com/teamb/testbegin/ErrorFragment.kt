@@ -15,12 +15,13 @@ package com.teamb.testbegin
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.leanback.app.ErrorSupportFragment
 import android.view.View
 
 /**
- * This class demonstrates how to extend [androidx.leanback.app.ErrorFragment].
+ * This class demonstrates how to extend [androidx.leanback.app.ErrorSupportFragment].
  */
-class ErrorFragment : androidx.leanback.app.ErrorFragment() {
+class ErrorFragment : ErrorSupportFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +29,17 @@ class ErrorFragment : androidx.leanback.app.ErrorFragment() {
     }
 
     internal fun setErrorContent() {
-        imageDrawable = ContextCompat.getDrawable(context, R.drawable.lb_ic_sad_cloud)
+        imageDrawable = ContextCompat.getDrawable(activity!!, R.drawable.lb_ic_sad_cloud)
         message = resources.getString(R.string.error_fragment_message)
         setDefaultBackground(TRANSLUCENT)
 
         buttonText = resources.getString(R.string.dismiss_error)
         buttonClickListener = View.OnClickListener {
-            fragmentManager.beginTransaction().remove(this@ErrorFragment).commit()
+            fragmentManager?.beginTransaction()?.remove(this@ErrorFragment)?.commit()
         }
     }
 
     companion object {
-        private val TRANSLUCENT = true
+        private const val TRANSLUCENT = true
     }
 }

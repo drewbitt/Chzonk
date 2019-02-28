@@ -73,7 +73,7 @@ object MovieList {
             "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/card.jpg"
         )
 
-        val list = title.indices.map {
+        return title.indices.map {
             buildMovieInfo(
                 title[it],
                 description,
@@ -83,8 +83,6 @@ object MovieList {
                 bgImageUrl[it]
             )
         }
-
-        return list
     }
 
     private fun buildMovieInfo(

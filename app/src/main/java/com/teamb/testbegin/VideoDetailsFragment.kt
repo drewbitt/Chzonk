@@ -45,8 +45,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 
-import java.util.Collections
-
 /**
  * A wrapper fragment for leanback details screens.
  * It shows a detailed view of video and its metadata plus related videos.
@@ -114,7 +112,7 @@ class VideoDetailsFragment : DetailsFragment() {
                     resource: GlideDrawable,
                     glideAnimation: GlideAnimation<in GlideDrawable>
                 ) {
-                    Log.d(TAG, "details overview card image url ready: " + resource)
+                    Log.d(TAG, "details overview card image url ready: $resource")
                     row.imageDrawable = resource
                     mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size())
                 }
@@ -176,9 +174,9 @@ class VideoDetailsFragment : DetailsFragment() {
 
     private fun setupRelatedMovieListRow() {
         val subcategories = arrayOf(getString(R.string.related_movies))
-        val list = MovieList.list
+        val list = MovieList.list.toMutableList()
 
-        Collections.shuffle(list)
+        list.shuffle()
         val listRowAdapter = ArrayObjectAdapter(CardPresenter())
         for (j in 0 until NUM_COLS) {
             listRowAdapter.add(list[j % 5])
@@ -202,7 +200,7 @@ class VideoDetailsFragment : DetailsFragment() {
             row: Row
         ) {
             if (item is Movie) {
-                Log.d(TAG, "Item: " + item.toString())
+                Log.d(TAG, "Item: $item")
                 val intent = Intent(context, DetailsActivity::class.java)
                 intent.putExtra(resources.getString(R.string.movie), mSelectedMovie)
 
@@ -219,15 +217,15 @@ class VideoDetailsFragment : DetailsFragment() {
     }
 
     companion object {
-        private val TAG = "VideoDetailsFragment"
+        private const val TAG = "VideoDetailsFragment"
 
-        private val ACTION_WATCH_TRAILER = 1L
-        private val ACTION_RENT = 2L
-        private val ACTION_BUY = 3L
+        private const val ACTION_WATCH_TRAILER = 1L
+        private const val ACTION_RENT = 2L
+        private const val ACTION_BUY = 3L
 
-        private val DETAIL_THUMB_WIDTH = 274
-        private val DETAIL_THUMB_HEIGHT = 274
+        private const val DETAIL_THUMB_WIDTH = 274
+        private const val DETAIL_THUMB_HEIGHT = 274
 
-        private val NUM_COLS = 10
+        private const val NUM_COLS = 10
     }
 }
