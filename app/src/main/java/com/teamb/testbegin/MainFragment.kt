@@ -47,6 +47,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.teamb.testbegin.settings.SettingsActivity
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -164,6 +165,8 @@ class MainFragment : BrowseFragment() {
                 if (item.contains(getString(R.string.error_fragment))) {
                     val intent = Intent(context, BrowseErrorActivity::class.java)
                     startActivity(intent)
+                } else if (item.contains("Personal Settings")) {
+                        startActivity(Intent(context, SettingsActivity::class.java))
                 } else {
                     Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
                 }
