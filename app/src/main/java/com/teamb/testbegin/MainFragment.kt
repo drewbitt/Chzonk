@@ -162,13 +162,13 @@ class MainFragment : BrowseFragment() {
                     .toBundle()
                 activity!!.startActivity(intent, bundle)
             } else if (item is String) {
-                if (item.contains(getString(R.string.error_fragment))) {
-                    val intent = Intent(context, BrowseErrorActivity::class.java)
-                    startActivity(intent)
-                } else if (item.contains("Personal Settings")) {
-                        startActivity(Intent(context, SettingsActivity::class.java))
-                } else {
-                    Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+                when {
+                    item.contains(getString(R.string.error_fragment)) -> {
+                        val intent = Intent(context, BrowseErrorActivity::class.java)
+                        startActivity(intent)
+                    }
+                    item.contains("Personal Settings") -> startActivity(Intent(context, SettingsActivity::class.java))
+                    else -> Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
                 }
             }
         }
