@@ -1,0 +1,10 @@
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="Preference Example">
+
+    <Preference
+            android:key="basic_preference"
+            android:title="Example 1"
+            android:summary="Summary 1" />
+
+</PreferenceScreen>
