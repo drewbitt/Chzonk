@@ -167,7 +167,13 @@ class MainFragment : BrowseFragment() {
                         val intent = Intent(context, BrowseErrorActivity::class.java)
                         startActivity(intent)
                     }
-                    item.contains("Personal Settings") -> startActivity(Intent(context, SettingsActivity::class.java))
+                    item.contains("Personal Settings") -> {
+                        val intent = Intent(context, SettingsActivity::class.java)
+                        val bundle =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                        startActivity(intent, bundle);
+                    }
+
                     else -> Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
                 }
             }
