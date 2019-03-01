@@ -11,3 +11,11 @@
 /build
 /captures
 .externalNativeBuild
+
+# Eclipse/VSCode Java plugin ignore - use AStudio
+.project
+.settings/
+.vscode/
+app/.classpath
+app/.project
+app/.settings/
