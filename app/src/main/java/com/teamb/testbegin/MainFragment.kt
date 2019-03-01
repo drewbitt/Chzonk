@@ -171,7 +171,7 @@ class MainFragment : BrowseFragment() {
                         val intent = Intent(context, SettingsActivity::class.java)
                         val bundle =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
-                        startActivity(intent, bundle);
+                        startActivity(intent, bundle)
                     }
 
                     else -> Toast.makeText(context, item, Toast.LENGTH_SHORT).show()

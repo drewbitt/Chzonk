@@ -11,7 +11,7 @@ import androidx.preference.PreferenceScreen
 import com.teamb.testbegin.R
 import java.util.Locale
 
-class SettingsFragment: LeanbackSettingsFragment() {
+class SettingsFragment : LeanbackSettingsFragment() {
 
     override fun onPreferenceStartInitialScreen() {
         startPreferenceFragment(PrefsFragment())
@@ -23,14 +23,14 @@ class SettingsFragment: LeanbackSettingsFragment() {
     override fun onPreferenceStartScreen(caller: PreferenceFragment?, pref: PreferenceScreen?): Boolean {
         val f = PrefsFragment()
         val args = Bundle(1)
-        args.putString(PreferenceFragment.ARG_PREFERENCE_ROOT, pref!!.getKey())
+        args.putString(PreferenceFragment.ARG_PREFERENCE_ROOT, pref!!.key)
         f.arguments = args
         startPreferenceFragment(f)
         return true
     }
 
     override fun onPreferenceStartFragment(caller: PreferenceFragment?, pref: Preference?): Boolean {
-        val f = PreferenceFragment.instantiate(activity, pref!!.fragment, pref!!.extras)
+        val f = PreferenceFragment.instantiate(activity, pref!!.fragment, pref.extras)
         f.setTargetFragment(caller, 0)
         if (f is PreferenceFragment || f is PreferenceDialogFragment) {
             startPreferenceFragment(f)
@@ -40,7 +40,7 @@ class SettingsFragment: LeanbackSettingsFragment() {
         return true
     }
 
-    class PrefsFragment: LeanbackPreferenceFragment() {
+    class PrefsFragment : LeanbackPreferenceFragment() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings, rootKey)
         }
