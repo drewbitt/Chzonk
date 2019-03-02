@@ -49,12 +49,15 @@ assembleRelease:
     paths:
     - app/build/outputs/
 
-externalLint:
+detektLint:
   stage: build
-  allow_failure: true
   script:
   - ./gradlew detekt
-  - ./gradlew ktlintCheck
+
+ktlintLint:
+  stage: build
+  script:
+    - ./gradlew ktlintCheck
 
 ######
 # TESTS

@@ -15,17 +15,14 @@
 package com.teamb.testbegin
 
 import java.util.Timer
-import java.util.TimerTask
 
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
 import androidx.leanback.app.BackgroundManager
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
-import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.leanback.widget.OnItemViewClickedListener
@@ -43,10 +40,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.leanback.app.BrowseFragment
 
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
 import com.teamb.testbegin.settings.SettingsActivity
 
 /**
@@ -54,12 +47,10 @@ import com.teamb.testbegin.settings.SettingsActivity
  */
 class MainFragment : BrowseFragment() {
 
-    private val mHandler = Handler()
     private lateinit var mBackgroundManager: BackgroundManager
     private var mDefaultBackground: Drawable? = null
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
-    private var mBackgroundUri: String? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -102,28 +93,13 @@ class MainFragment : BrowseFragment() {
     }
 
     private fun loadRows() {
-        val list : MutableList<Movie> = MovieList.list.toMutableList()
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
-        val cardPresenter = CardPresenter()
-
-        for (i in 0 until NUM_ROWS) {
-            if (i != 0) {
-                list.shuffle()
-            }
-            val listRowAdapter = ArrayObjectAdapter(cardPresenter)
-            for (j in 0 until NUM_COLS) {
-                listRowAdapter.add(list[j % 5])
-            }
-            val header = HeaderItem(i.toLong(), MovieList.MOVIE_CATEGORY[i])
-            rowsAdapter.add(ListRow(header, listRowAdapter))
-        }
 
         val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
 
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
-        gridRowAdapter.add(resources.getString(R.string.grid_view))
         gridRowAdapter.add(getString(R.string.error_fragment))
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
         rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
@@ -148,20 +124,7 @@ class MainFragment : BrowseFragment() {
             rowViewHolder: RowPresenter.ViewHolder,
             row: Row
         ) {
-
-            if (item is Movie) {
-                Log.d(TAG, "Item: $item")
-                val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra(DetailsActivity.MOVIE, item)
-
-                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    activity!!,
-                    (itemViewHolder.view as ImageCardView).mainImageView,
-                    DetailsActivity.SHARED_ELEMENT_NAME
-                )
-                    .toBundle()
-                activity!!.startActivity(intent, bundle)
-            } else if (item is String) {
+            if (item is String) {
                 when {
                     item.contains(getString(R.string.error_fragment)) -> {
                         val intent = Intent(context, BrowseErrorActivity::class.java)
@@ -182,45 +145,11 @@ class MainFragment : BrowseFragment() {
 
     private inner class ItemViewSelectedListener : OnItemViewSelectedListener {
         override fun onItemSelected(
-            itemViewHolder: Presenter.ViewHolder?, item: Any?,
-            rowViewHolder: RowPresenter.ViewHolder, row: Row
+            itemViewHolder: Presenter.ViewHolder?,
+            item: Any?,
+            rowViewHolder: RowPresenter.ViewHolder,
+            row: Row
         ) {
-            if (item is Movie) {
-                mBackgroundUri = item.backgroundImageUrl
-                startBackgroundTimer()
-            }
-        }
-    }
-
-    private fun updateBackground(uri: String?) {
-        val width = mMetrics.widthPixels
-        val height = mMetrics.heightPixels
-        Glide.with(context)
-            .load(uri)
-            .centerCrop()
-            .error(mDefaultBackground)
-            .into<SimpleTarget<GlideDrawable>>(
-                object : SimpleTarget<GlideDrawable>(width, height) {
-                    override fun onResourceReady(
-                        resource: GlideDrawable,
-                        glideAnimation: GlideAnimation<in GlideDrawable>
-                    ) {
-                        mBackgroundManager.drawable = resource
-                    }
-                })
-        mBackgroundTimer?.cancel()
-    }
-
-    private fun startBackgroundTimer() {
-        mBackgroundTimer?.cancel()
-        mBackgroundTimer = Timer()
-        mBackgroundTimer?.schedule(UpdateBackgroundTask(), BACKGROUND_UPDATE_DELAY.toLong())
-    }
-
-    private inner class UpdateBackgroundTask : TimerTask() {
-
-        override fun run() {
-            mHandler.post { updateBackground(mBackgroundUri) }
         }
     }
 
@@ -246,10 +175,8 @@ class MainFragment : BrowseFragment() {
     companion object {
         private const val TAG = "MainFragment"
 
-        private const val BACKGROUND_UPDATE_DELAY = 300
         private const val GRID_ITEM_WIDTH = 200
         private const val GRID_ITEM_HEIGHT = 200
         private const val NUM_ROWS = 6
-        private const val NUM_COLS = 15
     }
 }
