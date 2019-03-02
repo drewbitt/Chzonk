@@ -51,13 +51,11 @@ assembleRelease:
 
 detektLint:
   stage: build
-  allow_failure: true
   script:
   - ./gradlew detekt
 
 ktlintLint:
   stage: build
-  allow_failure: true
   script:
     - ./gradlew ktlintCheck
 
