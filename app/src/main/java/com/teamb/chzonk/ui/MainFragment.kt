@@ -33,7 +33,6 @@ import androidx.leanback.widget.RowPresenter
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
@@ -54,7 +53,6 @@ class MainFragment : BrowseFragment() {
     private var mBackgroundTimer: Timer? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.i(TAG, "onCreate")
         super.onActivityCreated(savedInstanceState)
 
         prepareBackgroundManager()
@@ -68,7 +66,6 @@ class MainFragment : BrowseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "onDestroy: " + mBackgroundTimer?.toString())
         mBackgroundTimer?.cancel()
     }
 
@@ -174,8 +171,6 @@ class MainFragment : BrowseFragment() {
     }
 
     companion object {
-        private const val TAG = "MainFragment"
-
         private const val GRID_ITEM_WIDTH = 200
         private const val GRID_ITEM_HEIGHT = 200
         private const val NUM_ROWS = 6
