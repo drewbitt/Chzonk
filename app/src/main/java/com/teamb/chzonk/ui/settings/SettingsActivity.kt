@@ -1,8 +1,8 @@
-package com.teamb.testbegin.ui.settings
+package com.teamb.chzonk.ui.settings
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
-import com.teamb.testbegin.R
+import com.teamb.chzonk.R
 
 class SettingsActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

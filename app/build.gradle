@@ -12,7 +12,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.teamb.testbegin"
+        applicationId "com.teamb.chzonk"
         minSdkVersion 27
         targetSdkVersion 28
         versionCode 1

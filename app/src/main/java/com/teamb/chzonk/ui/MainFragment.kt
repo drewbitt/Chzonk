@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.teamb.testbegin.ui
+package com.teamb.chzonk.ui
 
 import java.util.Timer
 
@@ -39,9 +39,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.leanback.app.BrowseFragment
-import com.teamb.testbegin.R
+import com.teamb.chzonk.R
 
-import com.teamb.testbegin.ui.settings.SettingsActivity
+import com.teamb.chzonk.ui.settings.SettingsActivity
 
 /**
  * Loads a grid of cards with movies to browse.

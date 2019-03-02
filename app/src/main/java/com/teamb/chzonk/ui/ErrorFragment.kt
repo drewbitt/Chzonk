@@ -11,13 +11,13 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.teamb.testbegin.ui
+package com.teamb.chzonk.ui
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.ErrorSupportFragment
 import android.view.View
-import com.teamb.testbegin.R
+import com.teamb.chzonk.R
 
 /**
  * This class demonstrates how to extend [androidx.leanback.app.ErrorSupportFragment].
