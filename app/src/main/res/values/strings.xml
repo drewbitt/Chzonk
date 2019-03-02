@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">testBegin</string>
+    <string name="app_name">Chzonk</string>
     <string name="title_activity_main">Leanback MainActivity Title</string>
     <string name="browse_title"><![CDATA[Chzonk]]></string>
     <string name="error_fragment">Error Fragment</string>

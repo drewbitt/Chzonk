@@ -1,4 +1,4 @@
-package com.teamb.testbegin.settings
+package com.teamb.chzonk.ui.settings
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceDialogFragment
 import androidx.preference.PreferenceFragment
 import androidx.preference.PreferenceScreen
-import com.teamb.testbegin.R
+import com.teamb.chzonk.R
 import java.util.Locale
 
 class SettingsFragment : LeanbackSettingsFragment() {

@@ -12,10 +12,11 @@
  * the License.
  */
 
-package com.teamb.testbegin
+package com.teamb.chzonk.ui
 
 import android.app.Activity
 import android.os.Bundle
+import com.teamb.chzonk.R
 
 /**
  * Loads [MainFragment].
