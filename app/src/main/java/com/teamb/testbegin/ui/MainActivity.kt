@@ -12,10 +12,11 @@
  * the License.
  */
 
-package com.teamb.testbegin
+package com.teamb.testbegin.ui
 
 import android.app.Activity
 import android.os.Bundle
+import com.teamb.testbegin.R
 
 /**
  * Loads [MainFragment].

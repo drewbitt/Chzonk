@@ -22,7 +22,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".MainActivity"
+                android:name=".ui.MainActivity"
                 android:banner="@drawable/app_icon_your_company"
                 android:icon="@drawable/app_icon_your_company"
                 android:label="@string/title_activity_main"
@@ -34,8 +34,8 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".BrowseErrorActivity"/>
-        <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".ui.BrowseErrorActivity"/>
+        <activity android:name=".ui.settings.SettingsActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.teamb.testbegin.settings
+package com.teamb.testbegin.ui.settings
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle

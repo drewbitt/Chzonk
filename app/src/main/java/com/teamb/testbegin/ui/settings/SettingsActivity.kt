@@ -1,4 +1,4 @@
-package com.teamb.testbegin.settings
+package com.teamb.testbegin.ui.settings
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
