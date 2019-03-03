@@ -8,4 +8,12 @@
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+
+    <!-- Settings -->
+    <string name="settings_fragment_title">Settings</string>
+    <string name="settings_download_category">Download</string>
+    <string name="settings_download_directory">Downloads Directory</string>
+
+    <!--Directory Chooser Dialog-->
+    <string name="title_choose_folder">Choose a Folder</string>
 </resources>

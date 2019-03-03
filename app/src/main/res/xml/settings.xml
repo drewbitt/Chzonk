@@ -1,10 +1,13 @@
-<PreferenceScreen
+<androidx.preference.PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:title="Preference Example">
+        android:title="@string/settings_fragment_title">
 
-    <Preference
-            android:key="basic_preference"
-            android:title="Example 1"
-            android:summary="Summary 1" />
+    <androidx.preference.PreferenceCategory
+            android:key="category_download_directory"
+            android:title="@string/settings_download_category">
+        <androidx.preference.Preference
+                android:key="settings_download_directory"
+                android:title="@string/settings_download_directory"/>
+    </androidx.preference.PreferenceCategory>
 
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>
