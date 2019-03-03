@@ -4,6 +4,12 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
+ext {
+    dagger_version = '2.21'
+}
+
 android {
     compileSdkVersion 28
     testOptions {
@@ -11,6 +17,7 @@ android {
             includeAndroidResources = true
         }
     }
+
     defaultConfig {
         applicationId "com.teamb.chzonk"
         minSdkVersion 27
@@ -18,11 +25,21 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -57,9 +74,14 @@ dependencies {
     implementation 'com.github.salomonbrys.kotson:kotson:2.5.0'
     */
 
+    // Dagger DI
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+
     // Other
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.jetbrains.anko:anko:0.10.8'
+    implementation 'com.github.hedzr:android-file-chooser:v1.1.16'
 
     /*// Testing
     testImplementation 'org.robolectric:robolectric:4.2'
