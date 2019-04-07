@@ -1,4 +1,4 @@
-package com.teamb.local_library.parser
+package com.teamb.locallib.parser
 
 open class ParserClass {
 

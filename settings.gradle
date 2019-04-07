@@ -1,1 +1,1 @@
-include ':app', ':local_library'
+include ':app', ':locallib'

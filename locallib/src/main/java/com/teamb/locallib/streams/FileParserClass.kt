@@ -1,9 +1,9 @@
-package com.teamb.local_library.streams
+package com.teamb.locallib.streams
 
-import com.teamb.local_library.parser.Parser7z
-import com.teamb.local_library.parser.ParserRar
-import com.teamb.local_library.parser.ParserZip
-import com.teamb.local_library.parser.ParserInterface
+import com.teamb.locallib.parser.Parser7z
+import com.teamb.locallib.parser.ParserRar
+import com.teamb.locallib.parser.ParserZip
+import com.teamb.locallib.parser.ParserInterface
 
 class FileParserClass(path: String) {
 

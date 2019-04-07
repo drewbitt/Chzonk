@@ -1,4 +1,4 @@
-package com.teamb.local_library.parser
+package com.teamb.locallib.parser
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
