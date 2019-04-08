@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
+@Suppress("FunctionNaming")
+@SuppressWarnings("unchecked")
 abstract class InjectorsModule {
 
     @ContributesAndroidInjector()

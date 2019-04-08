@@ -25,7 +25,6 @@ class DaggerApp : DaggerApplication() {
         sharedPrefsHelper.restoreSettings()
     }
 
-
     companion object {
         lateinit var appComponent: AppComponent
     }

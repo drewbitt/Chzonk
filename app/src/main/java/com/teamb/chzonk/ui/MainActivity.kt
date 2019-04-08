@@ -14,14 +14,10 @@
 
 package com.teamb.chzonk.ui
 
-import android.app.Activity
 import android.os.Bundle
 import com.teamb.chzonk.R
 import com.teamb.chzonk.ui.base.BaseActivity
 
-/**
- * Loads [MainFragment].
- */
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
