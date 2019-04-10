@@ -9,7 +9,7 @@ import dagger.android.DaggerActivity
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-open class BaseActivity : DaggerActivity() {
+open class BaseActivity : NewDaggerActivity() {
 
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
 
