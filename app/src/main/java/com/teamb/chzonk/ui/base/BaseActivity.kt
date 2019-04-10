@@ -6,7 +6,6 @@ import com.teamb.chzonk.Constants
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.util.SharedPrefsHelper
 import dagger.android.DaggerActivity
-import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 @SuppressLint("Registered")
