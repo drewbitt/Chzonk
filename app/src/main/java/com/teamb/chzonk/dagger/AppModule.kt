@@ -20,7 +20,7 @@ class AppModule {
 
     @Provides
     fun provideLocallibRepository() = LocallibRepository() // this needs the locallib part to be passed
-    
+
     @Provides
     fun provideReaderRepository() = ReaderRepository()// also needs things passed like locallib
 }
