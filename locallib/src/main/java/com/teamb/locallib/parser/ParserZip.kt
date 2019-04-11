@@ -18,10 +18,8 @@ class ParserZip : ParserClass(), ParserInterface {
         val e = zipFile.entries()
         while (e.hasMoreElements()) {
             e.nextElement()?.apply {
-                if (!isDirectory) {
-                    if (isImage(name)) entries.add(this)
-                    // not handling comicinfo.xml
-                }
+                if (!isDirectory) if (isImage(name)) entries.add(this)
+                // not handling comicinfo.xml
             }
         }
         entries.sortBy { it.name }

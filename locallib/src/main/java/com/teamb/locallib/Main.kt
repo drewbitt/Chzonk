@@ -22,5 +22,6 @@ class Main(val diskIO: Executor, val mainThread: Executor) {
 
     fun getImageInputStreamAt(position: Int) = ImageInputStream(this, position).liveData
 
-    fun getImageInputStreamSingleInstance(path: String, position: Int) = ImageInputStreamSingleInstance(this, path, position).liveData
+    fun getImageInputStreamSingleInstance(path: String, position: Int) =
+        ImageInputStreamSingleInstance(this, path, position).liveData
 }
