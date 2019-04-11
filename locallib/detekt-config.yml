@@ -175,7 +175,7 @@ exceptions:
   ThrowingNewInstanceOfSameException:
     active: false
   TooGenericExceptionCaught:
-    active: false
+    active: true
     exceptionNames:
      - ArrayIndexOutOfBoundsException
      - Error
@@ -187,7 +187,7 @@ exceptions:
      - Throwable
     allowedExceptionNameRegex: "^(_|(ignore|expected).*)"
   TooGenericExceptionThrown:
-    active: true
+    active: false
     exceptionNames:
      - Error
      - Exception
