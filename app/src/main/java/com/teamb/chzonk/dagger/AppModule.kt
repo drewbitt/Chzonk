@@ -4,7 +4,9 @@ import android.content.Context
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.repository.LocallibRepository
 import com.teamb.chzonk.data.repository.ReaderRepository
+import com.teamb.chzonk.util.AppExecutors
 import com.teamb.chzonk.util.SharedPrefsHelper
+import com.teamb.locallib.Main
 import dagger.Module
 import dagger.Provides
 
@@ -19,8 +21,14 @@ class AppModule {
         ViewModel(locallibRepository, readerRepository)
 
     @Provides
-    fun provideLocallibRepository() = LocallibRepository() // this needs the locallib part to be passed
+    fun provideLocallibRepository(mainLocal: Main) = LocallibRepository(mainLocal)
 
     @Provides
     fun provideReaderRepository() = ReaderRepository()// also needs things passed like locallib
+
+    @Provides
+    fun provideLocalLib(appExecutors: AppExecutors) = Main(appExecutors.diskIO, appExecutors.mainThread)
+
+    @Provides
+    fun provideAppExecutors() = AppExecutors()
 }
