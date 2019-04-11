@@ -24,7 +24,7 @@ class AppModule {
     fun provideLocallibRepository(mainLocal: Main) = LocallibRepository(mainLocal)
 
     @Provides
-    fun provideReaderRepository() = ReaderRepository()// also needs things passed like locallib
+    fun provideReaderRepository(mainLocal: Main) = ReaderRepository(mainLocal)
 
     @Provides
     fun provideLocalLib(appExecutors: AppExecutors) = Main(appExecutors.diskIO, appExecutors.mainThread)
