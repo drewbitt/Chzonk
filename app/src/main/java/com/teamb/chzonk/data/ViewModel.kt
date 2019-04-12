@@ -24,6 +24,4 @@ class ViewModel(
 
     internal fun getLocalImageInputStreamSingleInstance(filePath: String, position: Int) =
         locallibRepository.getLocalImageInputStreamSingleInstance(filePath, position)
-
 }
-

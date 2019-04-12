@@ -15,7 +15,7 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
     internal fun getItemAt(position: Int): Page? {
         try {
             return readerList[position]
-        } catch(e: IndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             Timber.e("Reader item not found at position[$position]")
         }
         return null
@@ -55,5 +55,4 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
 
         return this
     }
-
 }

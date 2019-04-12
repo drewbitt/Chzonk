@@ -5,7 +5,6 @@ import android.content.Intent
 import com.teamb.chzonk.Constants
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.util.SharedPrefsHelper
-import dagger.android.DaggerActivity
 import javax.inject.Inject
 
 @SuppressLint("Registered")

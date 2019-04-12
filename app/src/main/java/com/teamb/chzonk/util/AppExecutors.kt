@@ -5,7 +5,8 @@ import android.os.Looper
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-data class AppExecutors(val diskIO: Executor = Executors.newSingleThreadExecutor(),
+data class AppExecutors(
+    val diskIO: Executor = Executors.newSingleThreadExecutor(),
     val mainThread: Executor = MainThreadExecutor()) {
 
     private class MainThreadExecutor : Executor {
