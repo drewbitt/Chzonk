@@ -5,16 +5,16 @@ import com.bumptech.glide.load.model.ModelLoader
 import com.bumptech.glide.load.model.ModelLoaderFactory
 import com.bumptech.glide.load.model.MultiModelLoaderFactory
 import com.bumptech.glide.signature.ObjectKey
-import com.teamb.chzonk.data.model.Glide
+import com.teamb.chzonk.data.model.GlideModel
 import java.io.InputStream
 
-internal class LocallibFactory : ModelLoader<Glide, InputStream> {
-    override fun handles(model: Glide): Boolean {
+internal class LocallibFactory : ModelLoader<GlideModel, InputStream> {
+    override fun handles(model: GlideModel): Boolean {
         return true
     }
 
     override fun buildLoadData(
-        model: Glide,
+        model: GlideModel,
         width: Int,
         height: Int,
         options: Options
@@ -22,8 +22,8 @@ internal class LocallibFactory : ModelLoader<Glide, InputStream> {
         val key = ObjectKey("${model.book.filePath}:${model.position}")
         return ModelLoader.LoadData(key, LocallibDataFetcher(model))
     }
-    internal class Factory : ModelLoaderFactory<Glide, InputStream> {
-        override fun build(multiFactory: MultiModelLoaderFactory): ModelLoader<Glide, InputStream> {
+    internal class Factory : ModelLoaderFactory<GlideModel, InputStream> {
+        override fun build(multiFactory: MultiModelLoaderFactory): ModelLoader<GlideModel, InputStream> {
             return LocallibFactory()
         }
 
