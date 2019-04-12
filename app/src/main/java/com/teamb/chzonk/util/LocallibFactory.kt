@@ -9,7 +9,7 @@ import com.teamb.chzonk.data.model.Glide
 import java.io.InputStream
 
 internal class LocallibFactory : ModelLoader<Glide, InputStream> {
-    override fun handles(model: Glide?): Boolean {
+    override fun handles(model: Glide): Boolean {
         return true
     }
 
@@ -23,7 +23,7 @@ internal class LocallibFactory : ModelLoader<Glide, InputStream> {
         return ModelLoader.LoadData(key, LocallibDataFetcher(model))
     }
     internal class Factory : ModelLoaderFactory<Glide, InputStream> {
-        override fun build(multiFactory: MultiModelLoaderFactory?): ModelLoader<Glide, InputStream> {
+        override fun build(multiFactory: MultiModelLoaderFactory): ModelLoader<Glide, InputStream> {
             return LocallibFactory()
         }
 

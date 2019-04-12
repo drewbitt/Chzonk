@@ -38,7 +38,7 @@ class LocallibDataFetcher internal constructor(private val glideModel: Glide) : 
         } catch (e: Exception) {}
     }
 
-    override fun loadData(priority: Priority?, callback: DataFetcher.DataCallback<in InputStream>?) {
+    override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
         when (glideModel.loadSingleInstance) {
             // put stuff
         }

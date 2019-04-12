@@ -12,7 +12,7 @@ class ComicGlideModule : AppGlideModule() {
     init {
     }
 
-    override fun registerComponents(context: Context?, glide: Glide?, registry: Registry?) {
+    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         super.registerComponents(context, glide, registry)
         val locallibFactory = LocallibFactory.Factory()
     }
