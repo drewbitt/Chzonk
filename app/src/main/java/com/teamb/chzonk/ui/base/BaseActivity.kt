@@ -55,6 +55,5 @@ open class BaseActivity : NewDaggerActivity() {
 
             this@BaseActivity.startActivity(intent)
         }
-
     }
 }

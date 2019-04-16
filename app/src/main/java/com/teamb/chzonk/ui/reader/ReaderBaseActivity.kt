@@ -36,7 +36,7 @@ open class ReaderBaseActivity : BaseActivity() {
     private fun setProgress() {
         // based off of current page #
     }
-    
+
     protected fun setPageNumberText() {
         // set the page number text bindview
     }

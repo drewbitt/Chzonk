@@ -1,12 +1,16 @@
 package com.teamb.chzonk.data
 import androidx.lifecycle.ViewModel
 import com.teamb.chzonk.data.model.Book
+import com.teamb.chzonk.data.model.ComicFile
+import com.teamb.chzonk.data.repository.FileRepository
 import com.teamb.chzonk.data.repository.LocallibRepository
 import com.teamb.chzonk.data.repository.ReaderRepository
+import timber.log.Timber
 
 class ViewModel(
-    internal var locallibRepository: LocallibRepository,
-    internal var readerRepository: ReaderRepository
+    private val fileRepository: FileRepository,
+    private var locallibRepository: LocallibRepository,
+    private var readerRepository: ReaderRepository
 ) : ViewModel() {
 
     // readerRepository
@@ -24,4 +28,22 @@ class ViewModel(
 
     internal fun getLocalImageInputStreamSingleInstance(filePath: String, position: Int) =
         locallibRepository.getLocalImageInputStreamSingleInstance(filePath, position)
+
+    // local files
+    internal fun getFileListLiveData() = fileRepository.getListLiveData()
+
+    internal fun getFileList() = fileRepository.getList()
+
+    internal fun addFile(file: ComicFile) = fileRepository.addFile(file)
+
+    internal fun startGetList(list: List<Book>, savePath: String) {
+        list.forEach {
+            it.currentPage = 0
+            it.isFinished
+        }
+        when (savePath.isNotEmpty()) {
+            true -> fileRepository.addBooks(list, savePath)
+            false -> Timber.e("Error when fetching book list")
+        }
+    }
 }
