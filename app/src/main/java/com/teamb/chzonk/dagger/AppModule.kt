@@ -1,9 +1,13 @@
 package com.teamb.chzonk.dagger
 
 import android.content.Context
+import androidx.room.Room
+import com.teamb.chzonk.Constants
 import com.teamb.chzonk.data.ViewModel
+import com.teamb.chzonk.data.repository.FileRepository
 import com.teamb.chzonk.data.repository.LocallibRepository
 import com.teamb.chzonk.data.repository.ReaderRepository
+import com.teamb.chzonk.data.room.ChzonkDatabase
 import com.teamb.chzonk.util.AppExecutors
 import com.teamb.chzonk.util.SharedPrefsHelper
 import com.teamb.locallib.Main
@@ -12,6 +16,12 @@ import dagger.Provides
 
 @Module
 class AppModule {
+
+    @Provides
+    fun provideDao(context: Context) = Room
+        .databaseBuilder(context, ChzonkDatabase::class.java, Constants.DATABASE_NAME)
+        .build()
+        .fileDao()
 
     @Provides
     fun provideSharedPreferencesHelper(context: Context) = SharedPrefsHelper(context)
@@ -31,4 +41,7 @@ class AppModule {
 
     @Provides
     fun provideAppExecutors() = AppExecutors()
+
+    @Provides
+    fun provideFileRepository() = FileRepository()
 }
