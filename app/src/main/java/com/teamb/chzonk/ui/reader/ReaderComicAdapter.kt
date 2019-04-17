@@ -5,7 +5,8 @@ import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.ViewModel
 import javax.inject.Inject
 
-class ReaderComicAdapter internal constructor(private val readerComicActivity: ReaderComicActivity) : FragmentStatePagerAdapter(readerComicActivity.supportFragmentManager) {
+class ReaderComicAdapter internal constructor(private val readerComicActivity: ReaderComicActivity) :
+    FragmentStatePagerAdapter(readerComicActivity.supportFragmentManager) {
 
     init {
         DaggerApp.appComponent.inject(this)

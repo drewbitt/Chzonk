@@ -4,7 +4,6 @@ import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.Page
 import com.teamb.locallib.Main
 import timber.log.Timber
-import java.lang.IndexOutOfBoundsException
 
 class ReaderRepository(private val mainLocal: Main) { // includes functions like for dimensions
 
@@ -36,23 +35,27 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
         // fix zeros
         forEach {
             for (index in 0..9) {
-                it.page0 = when (it.page0) {
-                    "0" -> "00"
-                    "1" -> "01"
-                    "2" -> "02"
-                    "3" -> "03"
-                    "4" -> "04"
-                    "5" -> "05"
-                    "6" -> "06"
-                    "7" -> "07"
-                    "8" -> "08"
-                    "9" -> "09"
-                    else -> it.page0
-                }
+                it.page0 = renamePage(it)
             }
         }
         sortedBy { it.index }
 
         return this
+    }
+
+    private fun renamePage(it: Page): String {
+        return when (it.page0) {
+            "0" -> "00"
+            "1" -> "01"
+            "2" -> "02"
+            "3" -> "03"
+            "4" -> "04"
+            "5" -> "05"
+            "6" -> "06"
+            "7" -> "07"
+            "8" -> "08"
+            "9" -> "09"
+            else -> it.page0
+        }
     }
 }
