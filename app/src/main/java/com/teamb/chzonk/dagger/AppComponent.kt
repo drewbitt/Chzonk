@@ -4,8 +4,8 @@ import android.content.Context
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.ui.reader.ReaderComicAdapter
 import com.teamb.chzonk.ui.settings.SettingsFragment
-import com.teamb.chzonk.util.ComicGlideModule
-import com.teamb.chzonk.util.LocallibDataFetcher
+import com.teamb.chzonk.data.glide.ComicGlideModule
+import com.teamb.chzonk.data.glide.LocallibDataFetcher
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

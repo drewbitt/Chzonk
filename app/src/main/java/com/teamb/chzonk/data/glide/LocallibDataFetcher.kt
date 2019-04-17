@@ -1,4 +1,4 @@
-package com.teamb.chzonk.util
+package com.teamb.chzonk.data.glide
 
 import com.teamb.chzonk.data.ViewModel
 import com.bumptech.glide.Priority

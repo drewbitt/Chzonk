@@ -1,4 +1,4 @@
-package com.teamb.chzonk.util
+package com.teamb.chzonk.data.glide
 
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.model.ModelLoader

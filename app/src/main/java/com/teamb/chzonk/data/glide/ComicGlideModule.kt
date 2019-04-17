@@ -1,4 +1,4 @@
-package com.teamb.chzonk.util
+package com.teamb.chzonk.data.glide
 
 import android.content.Context
 import com.bumptech.glide.Glide
