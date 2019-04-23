@@ -1,5 +1,6 @@
 package com.teamb.chzonk.dagger
 
+import com.teamb.chzonk.ui.LibraryActivity
 import com.teamb.chzonk.ui.MainActivity
 import com.teamb.chzonk.ui.base.BaseActivity
 import dagger.Module
@@ -15,4 +16,7 @@ abstract class InjectorsModule {
 
     @ContributesAndroidInjector()
     abstract fun baseActivity(): BaseActivity
+
+    @ContributesAndroidInjector()
+    abstract fun libraryActivity(): LibraryActivity
 }

@@ -30,7 +30,7 @@ class ViewModel(
         locallibRepository.getLocalImageInputStreamSingleInstance(filePath, position)
 
     // local files
-    internal fun getFileListLiveData() = fileRepository.getListLiveData()
+    fun getFileListLiveData() = fileRepository.getListLiveData()
 
     internal fun getFileList() = fileRepository.getList()
 
