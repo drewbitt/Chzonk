@@ -32,7 +32,7 @@ class ViewModel(
     // local files
     fun getFileListLiveData() = fileRepository.getListLiveData()
 
-    internal fun getFileList() = fileRepository.getList()
+    fun getFileList() = fileRepository.getList()
 
     internal fun addFile(file: ComicFile) = fileRepository.addFile(file)
 

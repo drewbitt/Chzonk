@@ -16,8 +16,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.teamb.chzonk.R
 //import com.teamb.chzonk.data.glide.ComicGlideModule
 import com.teamb.chzonk.data.model.Book
-//import com.teamb.chzonk.data.model.BookData
 import com.teamb.chzonk.data.model.GlideModel
+
+//import com.teamb.chzonk.data.model.BookData
 
 //import android.R
 
@@ -29,6 +30,7 @@ class ComicCardPresenter : Presenter() {
     private var mSelectedBackgroundColor = -1
     private var mDefaultBackgroundColor = -1
     private var mDefaultCardImage: Drawable? = null
+    private lateinit var cardView: ImageCardView
     private val width = 600
     private val height = 600
 
@@ -44,7 +46,7 @@ class ComicCardPresenter : Presenter() {
             }
         }
 
-        cardView.layoutParams = ViewGroup.LayoutParams(300, 300)
+        cardView.layoutParams = ViewGroup.LayoutParams(600, 600)
         cardView.isFocusable = true
         cardView.isFocusableInTouchMode = true
         updateCardBackgroundColor(cardView, false)
@@ -71,7 +73,8 @@ class ComicCardPresenter : Presenter() {
         book.totalPages = 20
         book.isFinished = false
         book.filePath = "/sdcard/Download/The Darkness - Superman 001 (2005) (Troll-DCP).cbr"
-        val cardView = viewHolder.view as ImageCardView
+        cardView = viewHolder.view as ImageCardView
+        cardView.setMainImageDimensions(600,600)
         val options = RequestOptions().format(DecodeFormat.PREFER_RGB_565).skipMemoryCache(true)
         Glide.with(cardView.context)
             .asBitmap()
@@ -89,5 +92,8 @@ class ComicCardPresenter : Presenter() {
         // Remove references to images so that the garbage collector can free up memory.
         cardView.badgeImage = null
         cardView.mainImage = null
+    }
+    fun getCardView(): ImageCardView{
+        return cardView
     }
 }
