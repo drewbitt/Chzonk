@@ -1,11 +1,9 @@
 package com.teamb.chzonk.data
 import androidx.lifecycle.ViewModel
 import com.teamb.chzonk.data.model.Book
-import com.teamb.chzonk.data.model.ComicFile
 import com.teamb.chzonk.data.repository.FileRepository
 import com.teamb.chzonk.data.repository.LocallibRepository
 import com.teamb.chzonk.data.repository.ReaderRepository
-import timber.log.Timber
 
 class ViewModel(
     private val fileRepository: FileRepository,
@@ -34,16 +32,11 @@ class ViewModel(
 
     internal fun getFileList() = fileRepository.getList()
 
-    internal fun addFile(file: ComicFile) = fileRepository.addFile(file)
+    internal fun addBook(book: Book) = fileRepository.addBook(book) // add book to room
 
-    internal fun startGetList(list: List<Book>, savePath: String) {
-        list.forEach {
-            it.currentPage = 0
-            it.isFinished
-        }
-        when (savePath.isNotEmpty()) {
-            true -> fileRepository.addBooks(list, savePath)
-            false -> Timber.e("Error when fetching book list")
-        }
+    internal fun addBooks(list: List<Book>) {
+        fileRepository.addBooks(list)
     }
+
+    internal fun firstAddFiles(path: String) = fileRepository.firstAddFiles(path)
 }
