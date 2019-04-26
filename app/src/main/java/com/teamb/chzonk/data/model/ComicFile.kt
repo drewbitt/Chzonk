@@ -9,11 +9,8 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class ComicFile(
     @PrimaryKey(autoGenerate = true) override var autoId: Int = 0,
-    override var id: Int = 0,
     override var title: String = "",
-    override var content: String = "",
     override var currentPage: Int = 0,
-    override var totalPages: Int = 0,
     override var filePath: String = "",
     override var isFinished: Boolean = false
 ) : BookData(), Parcelable
