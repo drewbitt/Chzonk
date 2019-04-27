@@ -15,18 +15,13 @@
 package com.teamb.chzonk.ui
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
 import com.teamb.chzonk.R
-import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.ui.base.BaseActivity
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var viewModel: ViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
     }
 }

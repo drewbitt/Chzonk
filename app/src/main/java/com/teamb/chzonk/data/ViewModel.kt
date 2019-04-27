@@ -28,9 +28,9 @@ class ViewModel(
         locallibRepository.getLocalImageInputStreamSingleInstance(filePath, position)
 
     // local files
-    fun getFileListLiveData() = fileRepository.getListLiveData()
+    internal fun getFileListLiveData() = fileRepository.getListLiveData()
 
-    fun getFileList() = fileRepository.getList()
+    internal fun getFileList() = fileRepository.getList()
 
     internal fun addBook(book: Book) = fileRepository.addBook(book) // add book to room
 
