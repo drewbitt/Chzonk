@@ -14,33 +14,37 @@
 
 package com.teamb.chzonk.ui
 
-import java.util.Timer
-
+import android.app.Fragment
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
+import androidx.leanback.app.BrowseFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.OnItemViewSelectedListener
+import androidx.leanback.widget.PageRow
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat
-import android.util.DisplayMetrics
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.leanback.app.BrowseFragment
+import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
-
+import com.teamb.chzonk.data.ViewModel
+import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.settings.SettingsActivity
+import java.util.Timer
+import javax.inject.Inject
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -52,6 +56,13 @@ class MainFragment : BrowseFragment() {
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
 
+    init {
+        DaggerApp.appComponent.inject(this)
+    }
+
+    @Inject
+    lateinit var viewModel: ViewModel
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -62,6 +73,9 @@ class MainFragment : BrowseFragment() {
         loadRows()
 
         setupEventListeners()
+
+        mainFragmentRegistry.registerFragment(PageRow::class.java,
+            PageRowFragmentFactory(mBackgroundManager))
     }
 
     override fun onDestroy() {
@@ -94,17 +108,28 @@ class MainFragment : BrowseFragment() {
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
 
-        val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
+        val header1 = HeaderItem(NUM_ROWS.toLong(), "LIBRARY")
+        val pageRow1 = PageRow(header1)
 
+        val header2 = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
         gridRowAdapter.add(getString(R.string.error_fragment))
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
-        rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
 
+        rowsAdapter.add(pageRow1)
+        rowsAdapter.add(ListRow(header2, gridRowAdapter))
         adapter = rowsAdapter
     }
 
+    private class PageRowFragmentFactory internal constructor(private val mBackgroundManager: BackgroundManager) : BrowseFragment.FragmentFactory<Fragment>() {
+        override fun createFragment(row: Any?): Fragment {
+            mBackgroundManager.drawable = null
+            return LibraryFragment()
+        }
+    }
+
+    // everything below here gtidrowonly code
     private fun setupEventListeners() {
         setOnSearchClickedListener {
             Toast.makeText(context, "Implement your own in-app search", Toast.LENGTH_LONG)

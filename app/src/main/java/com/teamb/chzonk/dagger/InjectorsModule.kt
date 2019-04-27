@@ -10,9 +10,9 @@ import dagger.android.ContributesAndroidInjector
 @SuppressWarnings("unchecked")
 abstract class InjectorsModule {
 
-    @ContributesAndroidInjector()
-    abstract fun MainActivity(): MainActivity
+    @ContributesAndroidInjector
+    abstract fun mainActivity(): MainActivity
 
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector
     abstract fun baseActivity(): BaseActivity
 }
