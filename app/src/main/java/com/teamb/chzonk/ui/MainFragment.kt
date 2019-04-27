@@ -38,13 +38,10 @@ import androidx.leanback.widget.PageRow
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
-import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
-import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.settings.SettingsActivity
 import java.util.Timer
-import javax.inject.Inject
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -55,13 +52,6 @@ class MainFragment : BrowseFragment() {
     private var mDefaultBackground: Drawable? = null
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
-
-    init {
-        DaggerApp.appComponent.inject(this)
-    }
-
-    @Inject
-    lateinit var viewModel: ViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
