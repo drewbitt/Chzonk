@@ -14,7 +14,6 @@
 
 package com.teamb.chzonk.ui
 
-import android.app.Fragment
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -28,6 +27,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
 import androidx.leanback.app.BrowseFragment
+import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
@@ -46,7 +46,7 @@ import java.util.Timer
 /**
  * Loads a grid of cards with movies to browse.
  */
-class MainFragment : BrowseFragment() {
+class MainFragment : BrowseSupportFragment() {
 
     private lateinit var mBackgroundManager: BackgroundManager
     private var mDefaultBackground: Drawable? = null
@@ -63,9 +63,6 @@ class MainFragment : BrowseFragment() {
         loadRows()
 
         setupEventListeners()
-
-        mainFragmentRegistry.registerFragment(PageRow::class.java,
-            PageRowFragmentFactory(mBackgroundManager))
     }
 
     override fun onDestroy() {
@@ -77,6 +74,8 @@ class MainFragment : BrowseFragment() {
 
         mBackgroundManager = BackgroundManager.getInstance(activity)
         mBackgroundManager.attach(activity!!.window)
+        mainFragmentRegistry.registerFragment(PageRow::class.java,
+            PageRowFragmentFactory(mBackgroundManager))
         mDefaultBackground = ContextCompat.getDrawable(context!!, R.drawable.default_background)
         mMetrics = DisplayMetrics()
         activity!!.windowManager.defaultDisplay.getMetrics(mMetrics)
@@ -97,6 +96,7 @@ class MainFragment : BrowseFragment() {
     private fun loadRows() {
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+        adapter = rowsAdapter
 
         val header1 = HeaderItem(NUM_ROWS.toLong(), "LIBRARY")
         val pageRow1 = PageRow(header1)
@@ -109,17 +109,16 @@ class MainFragment : BrowseFragment() {
 
         rowsAdapter.add(pageRow1)
         rowsAdapter.add(ListRow(header2, gridRowAdapter))
-        adapter = rowsAdapter
     }
 
-    private class PageRowFragmentFactory internal constructor(private val mBackgroundManager: BackgroundManager) : BrowseFragment.FragmentFactory<Fragment>() {
-        override fun createFragment(row: Any?): Fragment {
+    private class PageRowFragmentFactory internal constructor(private val mBackgroundManager: BackgroundManager) : BrowseSupportFragment.FragmentFactory<androidx.fragment.app.Fragment>() {
+        override fun createFragment(row: Any?): androidx.fragment.app.Fragment {
             mBackgroundManager.drawable = null
             return LibraryFragment()
         }
     }
 
-    // everything below here gtidrowonly code
+    // everything below here non-library code
     private fun setupEventListeners() {
         setOnSearchClickedListener {
             Toast.makeText(context, "Implement your own in-app search", Toast.LENGTH_LONG)
@@ -146,7 +145,7 @@ class MainFragment : BrowseFragment() {
                     item.contains("Personal Settings") -> {
                         val intent = Intent(context, SettingsActivity::class.java)
                         val bundle =
-                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle()
                         startActivity(intent, bundle)
                     }
 
