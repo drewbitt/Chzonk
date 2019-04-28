@@ -1,6 +1,5 @@
 package com.teamb.chzonk.dagger
 
-import com.teamb.chzonk.ui.LibraryActivity
 import com.teamb.chzonk.ui.MainActivity
 import com.teamb.chzonk.ui.base.BaseActivity
 import dagger.Module
@@ -11,12 +10,9 @@ import dagger.android.ContributesAndroidInjector
 @SuppressWarnings("unchecked")
 abstract class InjectorsModule {
 
-    @ContributesAndroidInjector()
-    abstract fun MainActivity(): MainActivity
+    @ContributesAndroidInjector
+    abstract fun mainActivity(): MainActivity
 
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector
     abstract fun baseActivity(): BaseActivity
-
-    @ContributesAndroidInjector()
-    abstract fun libraryActivity(): LibraryActivity
 }

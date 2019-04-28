@@ -6,6 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'io.fabric'
+
+apply plugin: 'com.google.firebase.firebase-perf'
+
+apply plugin: 'com.google.gms.google-services'
+
 androidExtensions { experimental = true }
 android {
     compileSdkVersion 28
@@ -76,6 +82,12 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
     implementation "com.google.dagger:dagger-android:$rootProject.dagger_version"
+
+    //Firebase & Crashlytics
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation 'com.google.firebase:firebase-perf:16.2.5'
+    implementation 'com.google.firebase:firebase-common-ktx:16.1.0'
 
     // Other
     implementation 'com.jakewharton.timber:timber:4.7.1'

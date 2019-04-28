@@ -18,6 +18,9 @@ class ImageInputStream(main: Main, position: Int) {
                 main.mainThread.execute {
                     liveData.value = result
                 }
+            } catch (e: Exception) {
+                Timber.e("message[${e.message}]")
+                main.mainThread.execute { liveData.value = null }
             } catch (e: OutOfMemoryError) {
                 Timber.e("message[${e.message}]")
                 main.mainThread.execute { liveData.value = null }

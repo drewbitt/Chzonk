@@ -5,7 +5,7 @@ import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.glide.ComicGlideModule
 import com.teamb.chzonk.data.glide.LocallibDataFetcher
 import com.teamb.chzonk.data.repository.FileRepository
-import com.teamb.chzonk.ui.LibraryFragment
+import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.reader.ReaderComicAdapter
 import com.teamb.chzonk.ui.settings.SettingsFragment
 import dagger.BindsInstance
