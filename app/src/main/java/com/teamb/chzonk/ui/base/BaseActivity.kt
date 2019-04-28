@@ -2,26 +2,43 @@ package com.teamb.chzonk.ui.base
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import com.teamb.chzonk.Constants
+import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.ReadingData
+import com.teamb.chzonk.data.room.FileDao
 import com.teamb.chzonk.ui.reader.ReaderComicActivity
 import com.teamb.chzonk.util.SharedPrefsHelper
 import org.jetbrains.anko.toast
+import timber.log.Timber
 import javax.inject.Inject
 
 @SuppressLint("Registered")
 open class BaseActivity : NewDaggerActivity() {
 
     @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
+    @Inject lateinit var viewModel: ViewModel
+    @Inject lateinit var fileDao: FileDao // TESTING
 
     internal lateinit var currentBook: Book
+
+    // TESTING TESTING
+    inner class As: AsyncTask<Void, Void, Int>() {
+        override fun doInBackground(vararg params: Void?): Int {
+            // TESTING
+            // viewModel.firstAddFiles(Settings.DOWNLOAD_DIRECTORY)
+            Timber.d(fileDao.getAllBookFiles().toString())
+            return 1
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initIntent(intent)
+        As().execute()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -31,6 +48,7 @@ open class BaseActivity : NewDaggerActivity() {
 
     private fun initIntent(intent: Intent) = intent.apply {
         currentBook = getParcelableExtra(Constants.ARG_BOOK) ?: Book()
+
     }
 
     internal fun startReader(readingData: ReadingData) {
