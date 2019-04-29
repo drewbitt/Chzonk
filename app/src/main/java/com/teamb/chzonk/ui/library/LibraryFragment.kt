@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
-import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.lifecycle.Observer
 import com.teamb.chzonk.DaggerApp
@@ -41,8 +40,8 @@ class LibraryFragment : RowsSupportFragment(){
     private fun createRows() {
         viewModel.getFileListLiveData().observe(this, Observer { result ->
             result?.let {
-                val cardRow = fillCardRow(result.fileListToBookList())
-//                mRowsAdapter.add(createCardRow(cardRow))
+                var cardRow = fillCardRow(result.fileListToBookList())
+                cardRow = sortCardRow(cardRow)
                 createCardRow(cardRow)
             }
         })
@@ -57,17 +56,25 @@ class LibraryFragment : RowsSupportFragment(){
         return CardRow(listCards)
     }
 
-    private fun createCardRow(cardRow: CardRow)/*: ListRow*/ {
-//        val cardPresenter = LibraryPresenter(activity!!)
+    private fun sortCardRow(cardRow: CardRow): CardRow {
+        for (i in 0 until (cardRow.cards.size - 1) step 1)
+            for (j in i + 1 until cardRow.cards.size step 1)
+                if (cardRow.cards[i].book.title > cardRow.cards[j].book.title) {
+                    val temp = cardRow.cards[i].book
+                    cardRow.cards[i].book = cardRow.cards[j].book
+                    cardRow.cards[j].book = temp
+                }
+        return cardRow
+    }
+    private fun createCardRow(cardRow: CardRow) {
         val cardPresenter = LibraryPresenter(activity!!)
         var categoryName = "Library"
         var adapter = ArrayObjectAdapter(cardPresenter)
-//        cardRow.cards.forEach {
+
         for (i in 1..cardRow.cards.size step 1){
             adapter.add(cardRow.cards[i-1])
-            if (i%4 == 0){
+            if (i % 4 == 0){
                 val headerItem = HeaderItem(categoryName)
-//                adapter.add(cardRow.cards[j])
                 mRowsAdapter.add(CardListRow(headerItem, adapter, cardRow))
                 categoryName = ""
                 adapter = ArrayObjectAdapter(cardPresenter)
@@ -76,8 +83,5 @@ class LibraryFragment : RowsSupportFragment(){
                 mRowsAdapter.add(CardListRow(headerItem, adapter, cardRow))
             }
         }
-
-//        val headerItem = HeaderItem(categoryName)
-//        return CardListRow(headerItem, adapter, cardRow)
     }
 }

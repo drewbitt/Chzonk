@@ -26,6 +26,7 @@ class LibraryPresenter constructor(context:Context, cardThemeResId:Int = R.style
         val card = item as Card
         val cardView: ImageCardView = viewHolder?.view as ImageCardView
         cardView.tag = card
+        cardView.titleText = card.book.title
         Glide.with(viewHolder.view.context).load(GlideModel(card.book, 0, true)).into(cardView.mainImageView)
     }
 
