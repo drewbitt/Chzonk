@@ -66,6 +66,7 @@ class LibraryFragment : RowsSupportFragment(){
                 }
         return cardRow
     }
+
     private fun createCardRow(cardRow: CardRow) {
         val cardPresenter = LibraryPresenter(activity!!)
         var categoryName = "Library"
