@@ -2,9 +2,9 @@ package com.teamb.chzonk.util
 
 import android.content.Context
 import android.os.Environment
-import org.jetbrains.anko.defaultSharedPreferences
 import com.teamb.chzonk.Constants.KEY_DOWNLOAD_DIRECTORY
 import com.teamb.chzonk.Settings.DOWNLOAD_DIRECTORY
+import org.jetbrains.anko.defaultSharedPreferences
 
 class SharedPrefsHelper(context: Context) {
 
@@ -12,7 +12,7 @@ class SharedPrefsHelper(context: Context) {
 
     fun restoreSettings() {
         DOWNLOAD_DIRECTORY = sharedPreferences.getString(KEY_DOWNLOAD_DIRECTORY,
-            Environment.getExternalStorageDirectory().absolutePath + "/Downloads/chzonk/")
+            Environment.getExternalStorageDirectory().absolutePath + "/Download/")
     }
 
     fun saveDownloadDirectory() {

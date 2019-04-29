@@ -24,7 +24,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (BuildConfig.DEBUG)
-            Timber.plant(Timber.DebugTree());
+            Timber.plant(Timber.DebugTree())
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
