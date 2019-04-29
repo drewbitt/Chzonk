@@ -1,19 +1,15 @@
 package com.teamb.chzonk.ui.library
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
-import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
 import com.teamb.chzonk.ui.library.model.CardRow
 import com.teamb.chzonk.util.fileListToBookList
@@ -54,21 +50,10 @@ class LibraryFragment : RowsSupportFragment(){
     private fun fillCardRow(list: List<Book>): CardRow {
         val listCards = mutableListOf<Card>()
         list.forEach {
-            val card = Card(it, ImageView(activity))
-            loadImage(it, card)
+            val card = Card(it)
             listCards.add(card)
         }
         return CardRow(listCards)
-    }
-
-    private fun loadImage(book: Book, card: Card) {
-        val glideBook = GlideModel(book, 0, true)
-
-        Glide.with(activity!!)
-            .load(glideBook)
-            .apply(RequestOptions()
-                .fitCenter())
-            .into(card.image)
     }
 
     private fun createCardRow(cardRow: CardRow): ListRow {

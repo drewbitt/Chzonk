@@ -5,7 +5,9 @@ import android.view.ContextThemeWrapper
 import android.view.ViewGroup
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
+import com.bumptech.glide.Glide
 import com.teamb.chzonk.R
+import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
 
 class LibraryPresenter constructor(context:Context, cardThemeResId:Int = R.style.DefaultCardTheme): Presenter() {
@@ -25,7 +27,7 @@ class LibraryPresenter constructor(context:Context, cardThemeResId:Int = R.style
         val cardView: ImageCardView = viewHolder?.view as ImageCardView
 
         cardView.tag = card
-        cardView.mainImage = card.image.drawable
+        Glide.with(viewHolder.view.context).load(GlideModel(card.book, 0, true)).into(cardView.mainImageView)
     }
 
     override fun onUnbindViewHolder(viewHolder: ViewHolder?) {
