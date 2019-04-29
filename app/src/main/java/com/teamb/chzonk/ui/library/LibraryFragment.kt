@@ -1,20 +1,15 @@
 package com.teamb.chzonk.ui.library
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.teamb.chzonk.DaggerApp
-import com.teamb.chzonk.R
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
-import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
 import com.teamb.chzonk.ui.library.model.CardRow
 import com.teamb.chzonk.util.fileListToBookList
@@ -47,7 +42,8 @@ class LibraryFragment : RowsSupportFragment(){
         viewModel.getFileListLiveData().observe(this, Observer { result ->
             result?.let {
                 val cardRow = fillCardRow(result.fileListToBookList())
-                mRowsAdapter.add(createCardRow(cardRow))
+//                mRowsAdapter.add(createCardRow(cardRow))
+                createCardRow(cardRow)
             }
         })
     }
@@ -55,32 +51,33 @@ class LibraryFragment : RowsSupportFragment(){
     private fun fillCardRow(list: List<Book>): CardRow {
         val listCards = mutableListOf<Card>()
         list.forEach {
-            val card = Card(it, ImageView(activity))
-            loadImage(it, card)
+            val card = Card(it)
             listCards.add(card)
         }
         return CardRow(listCards)
     }
 
-    private fun loadImage(book: Book, card: Card) {
-        val glideBook = GlideModel(book, 0, true)
-
-        Glide.with(activity!!)
-            .load(glideBook)
-            .apply(RequestOptions()
-                .fitCenter()
-                .placeholder(resources.getDrawable(R.drawable.default_image)))
-            .into(card.image)
-    }
-
-    private fun createCardRow(cardRow: CardRow): ListRow {
+    private fun createCardRow(cardRow: CardRow)/*: ListRow*/ {
+//        val cardPresenter = LibraryPresenter(activity!!)
         val cardPresenter = LibraryPresenter(activity!!)
-        val adapter = ArrayObjectAdapter(cardPresenter)
-        cardRow.cards.forEach {
-            adapter.add(it)
+        var categoryName = "Library"
+        var adapter = ArrayObjectAdapter(cardPresenter)
+//        cardRow.cards.forEach {
+        for (i in 1..cardRow.cards.size step 1){
+            adapter.add(cardRow.cards[i-1])
+            if (i%4 == 0){
+                val headerItem = HeaderItem(categoryName)
+//                adapter.add(cardRow.cards[j])
+                mRowsAdapter.add(CardListRow(headerItem, adapter, cardRow))
+                categoryName = ""
+                adapter = ArrayObjectAdapter(cardPresenter)
+            }else if ( i == cardRow.cards.size){
+                val headerItem = HeaderItem(categoryName)
+                mRowsAdapter.add(CardListRow(headerItem, adapter, cardRow))
+            }
         }
 
-        val headerItem = HeaderItem("TEST TITLE")
-        return CardListRow(headerItem, adapter, cardRow)
+//        val headerItem = HeaderItem(categoryName)
+//        return CardListRow(headerItem, adapter, cardRow)
     }
 }

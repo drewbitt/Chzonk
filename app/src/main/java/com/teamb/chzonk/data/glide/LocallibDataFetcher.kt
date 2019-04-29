@@ -14,6 +14,7 @@ import java.io.InputStream
 import javax.inject.Inject
 
 class LocallibDataFetcher internal constructor(private val glideModel: GlideModel) : DataFetcher<InputStream> {
+
     init {
         DaggerApp.appComponent.inject(this)
     }
@@ -50,7 +51,7 @@ class LocallibDataFetcher internal constructor(private val glideModel: GlideMode
     private fun singleInstance(callback: DataFetcher.DataCallback<in InputStream>) {
         GlobalScope.launch(Dispatchers.Main) {
             viewModel.getLocalImageInputStreamSingleInstance(glideModel.book.filePath, glideModel.position)
-                .observeForever { result -> result(callback, inputStream)
+                .observeForever { result -> handleResult(callback, result)
             }
         }
     }
@@ -58,12 +59,12 @@ class LocallibDataFetcher internal constructor(private val glideModel: GlideMode
     private fun multipleInstance(callback: DataFetcher.DataCallback<in InputStream>) {
         GlobalScope.launch(Dispatchers.Main) {
             viewModel.getLocalImageInputStream(glideModel.position).observeForever {
-                    result -> result(callback, inputStream)
+                    result -> handleResult(callback, result)
             }
         }
     }
 
-    private fun result(callback: DataFetcher.DataCallback<in InputStream>, result: InputStream?) {
+    private fun handleResult(callback: DataFetcher.DataCallback<in InputStream>, result: InputStream?) {
         if (result == null) {
             callback.onLoadFailed(java.lang.Exception("Load Failed"))
         } else {
