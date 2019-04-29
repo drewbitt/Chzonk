@@ -10,8 +10,8 @@
     </style>
 
     <style name="DefaultCardImageStyle" parent="Widget.Leanback.ImageCardView.ImageStyle">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">280dp</item>
     </style>
 
     <style name="DefaultCardStyle" parent="Widget.Leanback.ImageCardViewStyle">

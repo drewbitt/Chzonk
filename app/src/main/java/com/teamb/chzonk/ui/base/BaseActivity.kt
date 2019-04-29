@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import com.teamb.chzonk.Constants
+import com.teamb.chzonk.Settings
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.ReadingData
@@ -28,7 +29,7 @@ open class BaseActivity : NewDaggerActivity() {
     inner class As: AsyncTask<Void, Void, Int>() {
         override fun doInBackground(vararg params: Void?): Int {
             // TESTING
-            // viewModel.firstAddFiles(Settings.DOWNLOAD_DIRECTORY)
+//             viewModel.firstAddFiles(Settings.DOWNLOAD_DIRECTORY)
             Timber.d(fileDao.getAllBookFiles().toString())
             return 1
         }

@@ -21,7 +21,7 @@ class LibraryPresenter constructor(context:Context, cardThemeResId:Int = R.style
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder?, item: Any?) {
-        val card= item as Card
+        val card = item as Card
         val cardView: ImageCardView = viewHolder?.view as ImageCardView
 
         cardView.tag = card

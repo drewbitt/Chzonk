@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.teamb.chzonk.DaggerApp
+import com.teamb.chzonk.R
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.GlideModel
@@ -67,7 +68,8 @@ class LibraryFragment : RowsSupportFragment(){
         Glide.with(activity!!)
             .load(glideBook)
             .apply(RequestOptions()
-                .fitCenter())
+                .fitCenter()
+                .placeholder(resources.getDrawable(R.drawable.default_image)))
             .into(card.image)
     }
 
