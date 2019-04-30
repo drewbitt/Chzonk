@@ -1,5 +1,6 @@
 package com.teamb.chzonk.data.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.ComicFile
@@ -96,10 +97,13 @@ open class FileRepository {
                 }
 
                 Timber.d("Deleting books from dao: {$daoList}")
+                var newList = MutableLiveData<List<Book>>()
                 daoList.forEach {
-                    deleteFile(it)
+                    newList = deleteFile(it)
                 }
-                addAllInList(newFileList)
+                newList.observeForever{
+                    addAllInList(newFileList)
+                }
             } else {
                 // if nothing was in dao
                 addAllInList(fileList)
