@@ -9,9 +9,13 @@ import java.io.File
 
 internal fun localListOfComicFiles(path: String): MutableList<ComicFile> {
     val fileList = mutableListOf<ComicFile>()
-    File(path).walk().forEach {
-        if (it.extension == "cbr" || it.extension == "cbz" || it.extension == "cb7") {
-            fileList.add(fileToComicFile(it))
+
+    val filePath = File(path)
+    if (filePath.exists() && filePath.isDirectory) {
+        filePath.listFiles().forEach {
+            if (it.extension == "cbr" || it.extension == "cbz" || it.extension == "cb7") {
+                fileList.add(fileToComicFile(it))
+            }
         }
     }
     return fileList
@@ -46,6 +50,27 @@ internal class GetList : FileRepository() {
                 executors.mainThread.execute { liveData.value = result }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}]")
+                executors.mainThread.execute { liveData.value = null }
+            }
+        }
+    }
+}
+
+internal class DeleteFile(book: Book) : FileRepository() {
+    internal val liveData = MutableLiveData<List<Book>>()
+
+    private val file = book.toComicFile()
+
+    init {
+        executors.diskIO.execute {
+            try {
+                fileDao.getAllBookFiles()
+                    .filter { it.autoId == file.autoId }
+                    .forEach { fileDao.deleteFile(it) }
+                val result = fileDao.getAllBookFiles().fileListToBookList()
+                executors.mainThread.execute { liveData.value = result }
+            } catch (e: Exception) {
+                Timber.e("message[${e.message}] $file")
                 executors.mainThread.execute { liveData.value = null }
             }
         }

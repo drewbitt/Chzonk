@@ -11,6 +11,7 @@ import com.teamb.chzonk.data.room.FileDao
 import com.teamb.chzonk.ui.reader.ReaderComicActivity
 import com.teamb.chzonk.util.SharedPrefsHelper
 import org.jetbrains.anko.toast
+import timber.log.Timber
 import javax.inject.Inject
 
 @SuppressLint("Registered")
@@ -34,7 +35,6 @@ open class BaseActivity : NewDaggerActivity() {
 
     private fun initIntent(intent: Intent) = intent.apply {
         currentBook = getParcelableExtra(Constants.ARG_BOOK) ?: Book()
-
     }
 
     internal fun startReader(readingData: ReadingData) {
@@ -43,7 +43,8 @@ open class BaseActivity : NewDaggerActivity() {
             true -> startReaderActivity(readingData)
             false -> try {
                 toast("File does not exist")
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                Timber.d("Couldn't toast") }
         }
     }
 

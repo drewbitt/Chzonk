@@ -21,7 +21,8 @@ class LocallibDataFetcher internal constructor(private val glideModel: GlideMode
 
     @Inject
     lateinit var viewModel: ViewModel
-    lateinit var inputStream: InputStream
+
+    private lateinit var inputStream: InputStream
 
     override fun getDataClass(): Class<InputStream> = InputStream::class.java
 

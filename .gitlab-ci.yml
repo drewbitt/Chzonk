@@ -20,6 +20,8 @@ before_script:
 - set +o pipefail
 - yes | android-sdk-linux/tools/bin/sdkmanager --licenses
 - set -o pipefail
+# decode firebase json
+- echo $ANDROID_FIREBASE_JSON | base64 --decode > app/google-services.json
 
 stages:
 - build
