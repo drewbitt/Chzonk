@@ -111,7 +111,8 @@ class MainFragment : BrowseSupportFragment() {
         rowsAdapter.add(ListRow(header2, gridRowAdapter))
     }
 
-    private class PageRowFragmentFactory internal constructor(private val mBackgroundManager: BackgroundManager) : BrowseSupportFragment.FragmentFactory<androidx.fragment.app.Fragment>() {
+    private class PageRowFragmentFactory internal constructor(private val mBackgroundManager: BackgroundManager) :
+        BrowseSupportFragment.FragmentFactory<androidx.fragment.app.Fragment>() {
         override fun createFragment(row: Any?): androidx.fragment.app.Fragment {
             mBackgroundManager.drawable = null
             return LibraryFragment()

@@ -57,24 +57,24 @@ open class FileRepository {
             Timber.d("Books found in dao before refresh: {$daoList}")
             if (daoList.any()) {
                 // Not implementing as size or hash is not stored anywhere; determining duplicate off of purely filename
-                // is a bad idea. Also has changed since daoList now a list of comic not book files.
+                // is a bad idea.
                 /*
-            fileList.forEach { fi ->
-                val newFile = File(fi.filePath)
-                daoList.forEach { dao ->
-                    val fileDao = File(dao.filePath)
-                    // check if names are the same
-                    // I want to check for sizes/hash here but if it's already moved I couldn't get the old size since
-                    // not storing it.
-                    if (fileDao.name == newFile.name) {
-                        // found same file name! keep (for keeping progress) but change path
-                        dao.filePath = fi.filePath
-                        addBook(dao)
-                        fileList.remove(fi)
+                fileList.forEach { fi ->
+                    val newFile = File(fi.filePath)
+                    daoList.forEach { dao ->
+                        val fileDao = File(dao.filePath)
+                        // check if names are the same
+                        // I want to check for sizes/hash here but it's already moved; can't get the old size since
+                        // not storing it.
+                        if (fileDao.name == newFile.name) {
+                            // found same file name! keep (for keeping progress) but change path
+                            dao.filePath = fi.filePath
+                            addBook(dao)
+                            fileList.remove(fi)
+                        }
                     }
                 }
-            }
-            */
+                */
                 Timber.d("Deleting books from dao: {$daoList}")
                 daoList.forEach {
                     deleteFile(it)

@@ -66,9 +66,9 @@ internal class DeleteFile(book: Book) : FileRepository() {
             try {
                 fileDao.getAllBookFiles()
                     .filter { it.autoId == file.autoId }
-                    .forEach { fileDao.deleteFile(it)}
+                    .forEach { fileDao.deleteFile(it) }
                 val result = fileDao.getAllBookFiles().fileListToBookList()
-                executors.mainThread.execute { liveData.value = result}
+                executors.mainThread.execute { liveData.value = result }
             } catch (e: Exception) {
                 Timber.e("message[${e.message}] $file")
                 executors.mainThread.execute { liveData.value = null }

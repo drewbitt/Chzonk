@@ -12,10 +12,10 @@ import com.teamb.chzonk.R
 import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
 
-class LibraryPresenter constructor(context:Context, cardThemeResId:Int = R.style.DefaultCardTheme): Presenter() {
-    private val mContext:Context
+class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.style.DefaultCardTheme) : Presenter() {
+    private val mContext: Context
 
-    init{
+    init {
         mContext = ContextThemeWrapper(context, cardThemeResId)
     }
 
@@ -38,11 +38,9 @@ class LibraryPresenter constructor(context:Context, cardThemeResId:Int = R.style
             .into(cardView.mainImageView)
     }
 
-    override fun onUnbindViewHolder(viewHolder: ViewHolder?) {
-       onUnbindViewHolder(viewHolder?.view as ImageCardView)
-    }
+    override fun onUnbindViewHolder(viewHolder: ViewHolder?) = onUnbindViewHolder(viewHolder?.view as ImageCardView)
 
-    fun onUnbindViewHolder(cardView: ImageCardView) {
+    private fun onUnbindViewHolder(cardView: ImageCardView) {
         // Nothing to clean up
     }
 

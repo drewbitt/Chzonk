@@ -27,8 +27,11 @@ class AppModule {
     fun provideSharedPreferencesHelper(context: Context) = SharedPrefsHelper(context)
 
     @Provides
-    fun provideViewModel(fileRepository: FileRepository, locallibRepository: LocallibRepository, readerRepository: ReaderRepository) =
-        ViewModel(fileRepository, locallibRepository, readerRepository)
+    fun provideViewModel(
+        fileRepository: FileRepository,
+        locallibRepository: LocallibRepository,
+        readerRepository: ReaderRepository
+    ) = ViewModel(fileRepository, locallibRepository, readerRepository)
 
     @Provides
     fun provideLocallibRepository(mainLocal: Main) = LocallibRepository(mainLocal)
