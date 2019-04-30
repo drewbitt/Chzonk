@@ -5,10 +5,13 @@ import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRowPresenter
+import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.lifecycle.Observer
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
+import com.teamb.chzonk.data.model.ReadingData
+import com.teamb.chzonk.ui.MainActivity
 import com.teamb.chzonk.ui.library.model.Card
 import com.teamb.chzonk.ui.library.model.CardRow
 import com.teamb.chzonk.util.fileListToBookList
@@ -23,8 +26,10 @@ class LibraryFragment : RowsSupportFragment() {
         mRowsAdapter = ArrayObjectAdapter(selector)
         adapter = mRowsAdapter
 
-        // implement onClickListener here
-
+        onItemViewClickedListener = OnItemViewClickedListener { itemViewHolder, item, rowViewHolder, row ->
+            val readingData = item as ReadingData
+            MainActivity().startReader(readingData)
+        }
         DaggerApp.appComponent.inject(this)
     }
 
