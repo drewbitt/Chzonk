@@ -2,12 +2,15 @@ package com.teamb.chzonk.data.repository
 
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.model.Book
+import com.teamb.chzonk.data.model.ComicFile
 import com.teamb.chzonk.data.room.FileDao
 import com.teamb.chzonk.util.AppExecutors
+import com.teamb.chzonk.util.DeleteFile
 import com.teamb.chzonk.util.GetList
 import com.teamb.chzonk.util.InsertFile
 import com.teamb.chzonk.util.localListOfComicFiles
 import com.teamb.chzonk.util.toBook
+import timber.log.Timber
 import javax.inject.Inject
 
 open class FileRepository {
@@ -29,14 +32,58 @@ open class FileRepository {
 
     internal fun getListLiveData() = fileDao.getAllBookFilesLiveData() // LiveData<List<ComicFile>>
 
-    internal fun firstAddFiles(path: String) {
-        // this should be some sort of a refresh command, possibly checking if same path as before,
-        // adding new books but not re-adding the same, removing extras, etc but for now just implementing
-        // "add everything in path" for a first starting command
+    // current implementation deletes off of autoId - may not be a good idea
+    internal fun deleteFile(book: Book) = DeleteFile(book).liveData
+
+    internal fun refreshFiles(path: String, firstRun: Boolean) {
+        fun addAllInList(fileList: MutableList<ComicFile>) {
+            Timber.d("Adding books to dao: {$fileList}")
+            addBooks(fileList.map {
+                it.toBook()
+            }.toMutableList())
+        }
 
         val fileList = localListOfComicFiles(path)
-        addBooks(fileList.map {
-            it.toBook()
-        }.toMutableList())
+        Timber.d("Books found in path before refresh: {$fileList}")
+
+        if (firstRun) {
+            addAllInList(fileList)
+            return
+        }
+
+        // this is terrible - observing forever because it is already broken without hashing/size checks
+        // and I don't care to also properly implement async fileDao access for the daoList
+        getList().observeForever { daoList ->
+            Timber.d("Books found in dao before refresh: {$daoList}")
+            if (daoList.any()) {
+                // Not implementing as size or hash is not stored anywhere; determining duplicate off of purely filename
+                // is a bad idea. Also has changed since daoList now a list of comic not book files.
+                /*
+            fileList.forEach { fi ->
+                val newFile = File(fi.filePath)
+                daoList.forEach { dao ->
+                    val fileDao = File(dao.filePath)
+                    // check if names are the same
+                    // I want to check for sizes/hash here but if it's already moved I couldn't get the old size since
+                    // not storing it.
+                    if (fileDao.name == newFile.name) {
+                        // found same file name! keep (for keeping progress) but change path
+                        dao.filePath = fi.filePath
+                        addBook(dao)
+                        fileList.remove(fi)
+                    }
+                }
+            }
+            */
+                Timber.d("Deleting books from dao: {$daoList}")
+                daoList.forEach {
+                    deleteFile(it)
+                }
+                addAllInList(fileList)
+            } else {
+                // if nothing was in dao
+                addAllInList(fileList)
+            }
+        }
     }
 }

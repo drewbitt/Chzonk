@@ -12,6 +12,7 @@ import com.obsez.android.lib.filechooser.ChooserDialog
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
 import com.teamb.chzonk.Settings
+import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.util.SharedPrefsHelper
 import javax.inject.Inject
 
@@ -50,6 +51,8 @@ class SettingsFragment : LeanbackSettingsFragment() {
 
         @Inject
         lateinit var sharedPrefsHelper: SharedPrefsHelper
+        @Inject
+        lateinit var viewModel: ViewModel
 
         private var downloadDirectory: Preference? = null
 
@@ -73,10 +76,13 @@ class SettingsFragment : LeanbackSettingsFragment() {
                     .withStartFile(Environment.getExternalStorageDirectory().absolutePath)
                     .withResources(R.string.title_choose_folder, R.string.title_choose, R.string.dialog_cancel)
                     // to handle the result(s)
-                    .withChosenListener { path, pathFile ->
-                        Settings.DOWNLOAD_DIRECTORY = path
-                        sharedPrefsHelper.saveDownloadDirectory()
-                        downloadDirectory?.summary = path
+                    .withChosenListener { path, _ ->
+                            if (Settings.DOWNLOAD_DIRECTORY != path) {
+                                Settings.DOWNLOAD_DIRECTORY = path
+                                viewModel.refreshFiles(path, false)
+                                sharedPrefsHelper.saveDownloadDirectory()
+                                downloadDirectory?.summary = path
+                            }
                     }
                     .build()
                     .show()

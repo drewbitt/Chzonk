@@ -28,9 +28,9 @@ class ViewModel(
         locallibRepository.getLocalImageInputStreamSingleInstance(filePath, position)
 
     // local files
-    internal fun getFileListLiveData() = fileRepository.getListLiveData()
+    internal fun getFileListLiveData() = fileRepository.getListLiveData() // direct dao call
 
-    internal fun getFileList() = fileRepository.getList()
+    internal fun getFileList() = fileRepository.getList() // executors diskIo dao call
 
     internal fun addBook(book: Book) = fileRepository.addBook(book) // add book to room
 
@@ -38,5 +38,7 @@ class ViewModel(
         fileRepository.addBooks(list)
     }
 
-    internal fun firstAddFiles(path: String) = fileRepository.firstAddFiles(path)
+    internal fun deleteFile(book: Book) = fileRepository.deleteFile(book)
+
+    internal fun refreshFiles(path: String, firstRun: Boolean) = fileRepository.refreshFiles(path, firstRun)
 }

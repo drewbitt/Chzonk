@@ -2,6 +2,7 @@ package com.teamb.chzonk.data.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,4 +19,11 @@ interface FileDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFile(file: ComicFile)
+
+    @Delete
+    fun deleteFile(file: ComicFile)
+
+    // currently only used in testing
+    @Query("DELETE FROM ComicFile")
+    fun deleteFilesAll()
 }
