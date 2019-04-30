@@ -22,7 +22,6 @@ import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
@@ -38,10 +37,15 @@ import androidx.leanback.widget.PageRow
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
+import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
+import com.teamb.chzonk.Settings
+import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.settings.SettingsActivity
+import org.jetbrains.anko.support.v4.toast
 import java.util.Timer
+import javax.inject.Inject
 
 /**
  * Loads a grid of cards with movies to browse.
@@ -52,6 +56,12 @@ class MainFragment : BrowseSupportFragment() {
     private var mDefaultBackground: Drawable? = null
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
+
+    init {
+        DaggerApp.appComponent.inject(this)
+    }
+    @Inject
+    lateinit var viewModel: ViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -104,6 +114,7 @@ class MainFragment : BrowseSupportFragment() {
         val header2 = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
+        gridRowAdapter.add(getString(R.string.refresh_library))
         gridRowAdapter.add(getString(R.string.error_fragment))
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
 
@@ -122,8 +133,7 @@ class MainFragment : BrowseSupportFragment() {
     // everything below here non-library code
     private fun setupEventListeners() {
         setOnSearchClickedListener {
-            Toast.makeText(context, "Implement your own in-app search", Toast.LENGTH_LONG)
-                .show()
+            toast("Implement your own in-app search")
         }
 
         onItemViewClickedListener = ItemViewClickedListener()
@@ -143,14 +153,16 @@ class MainFragment : BrowseSupportFragment() {
                         val intent = Intent(context, BrowseErrorActivity::class.java)
                         startActivity(intent)
                     }
-                    item.contains("Personal Settings") -> {
+                    item.contains(getString(R.string.personal_settings)) -> {
                         val intent = Intent(context, SettingsActivity::class.java)
                         val bundle =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle()
                         startActivity(intent, bundle)
                     }
-
-                    else -> Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+                    item.contains(getString(R.string.refresh_library)) -> {
+                        viewModel.refreshFiles(Settings.DOWNLOAD_DIRECTORY, false)
+                        toast("Refreshed library")
+                    }
                 }
             }
         }

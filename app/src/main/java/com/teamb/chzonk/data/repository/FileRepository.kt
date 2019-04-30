@@ -10,7 +10,9 @@ import com.teamb.chzonk.util.GetList
 import com.teamb.chzonk.util.InsertFile
 import com.teamb.chzonk.util.localListOfComicFiles
 import com.teamb.chzonk.util.toBook
+import com.teamb.chzonk.util.toComicFile
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 open class FileRepository {
@@ -75,11 +77,29 @@ open class FileRepository {
                     }
                 }
                 */
+
+                // I can at least do a check for size (hash still better) if not changing directory
+                // to keep currentPage values
+                val newFileList = fileList.toMutableList()
+
+                fileList.forEachIndexed { index, fi ->
+                    val newFile = File(fi.filePath)
+                    daoList.forEach { dao ->
+                        val daoFile = File(dao.filePath)
+
+                        if (daoFile.absolutePath == newFile.absolutePath && daoFile.exists() &&
+                            daoFile.length() == newFile.length()) {
+                            Timber.d("Updating the replacing fileList with existing book: {$dao}")
+                            newFileList[index] = dao.toComicFile()
+                        }
+                    }
+                }
+
                 Timber.d("Deleting books from dao: {$daoList}")
                 daoList.forEach {
                     deleteFile(it)
                 }
-                addAllInList(fileList)
+                addAllInList(newFileList)
             } else {
                 // if nothing was in dao
                 addAllInList(fileList)
