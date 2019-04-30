@@ -35,6 +35,7 @@ class LibraryFragment : RowsSupportFragment() {
 
     @Inject
     lateinit var viewModel: ViewModel
+    @Inject
     lateinit var mainActivity: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
