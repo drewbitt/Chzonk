@@ -3,6 +3,9 @@ package com.teamb.chzonk.ui.reader
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
+import com.teamb.chzonk.Constants
+import com.teamb.chzonk.R
 import com.teamb.chzonk.ui.base.BaseActivity
 
 @SuppressLint("Registered")
@@ -12,14 +15,16 @@ open class ReaderBaseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        title = currentBook.title
+        setContentView(R.layout.activity_reader)
+        currentBook = intent.getParcelableExtra(Constants.ARG_BOOK)
+       // title = viewModel.currentBook.value!!.title
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        title = currentBook.title
+        title = viewModel.currentBook.value!!.title
     }
+
 
     protected open fun setImage() {
         // override in children

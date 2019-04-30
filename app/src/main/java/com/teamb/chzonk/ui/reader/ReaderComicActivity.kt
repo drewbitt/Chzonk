@@ -7,6 +7,7 @@ open class ReaderComicActivity : ReaderBaseActivity() {
 
     protected fun initUi() {
         // inflate layouts
+
     }
     // override children
     // menu functions

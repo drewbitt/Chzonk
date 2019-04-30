@@ -3,6 +3,7 @@ package com.teamb.chzonk.ui.base
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import com.teamb.chzonk.Constants
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
@@ -21,7 +22,7 @@ open class BaseActivity : NewDaggerActivity() {
     @Inject lateinit var viewModel: ViewModel
     @Inject lateinit var fileDao: FileDao // TESTING
 
-    internal lateinit var currentBook: Book
+    lateinit var currentBook: Book
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +53,10 @@ open class BaseActivity : NewDaggerActivity() {
         readingData.apply {
             when (book.isValidComicExtension()) {
                 true -> {
-                    val intent = Intent(this@BaseActivity, ReaderComicActivity::class.java)
-                    intent.putExtra(Constants.ARG_BOOK, book)
+                    val intent1 = Intent(this@BaseActivity, ReaderComicActivity::class.java)
+                    intent1.putExtra(Constants.ARG_BOOK, book)
+                    viewModel.setCurrentBook(readingData.book)
+                    intent = intent1
                 }
                 false -> toast("File extension not supported") // may check earlier
             }
