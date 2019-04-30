@@ -28,13 +28,14 @@ class LibraryFragment : RowsSupportFragment() {
 
         onItemViewClickedListener = OnItemViewClickedListener { itemViewHolder, item, rowViewHolder, row ->
             val readingData = item as ReadingData
-            MainActivity().startReader(readingData)
+            mainActivity.startReader(readingData)
         }
         DaggerApp.appComponent.inject(this)
     }
 
     @Inject
     lateinit var viewModel: ViewModel
+    lateinit var mainActivity: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
