@@ -13,13 +13,22 @@ open class ReaderBaseActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setContentView(R.layout.activity_reader)
-        // title = viewModel.currentBook.value!!.title // title is already set
+        title = currentBook.title
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         title = currentBook.title
     }
+
+    protected fun populateList() {
+        viewModel.createList(currentBook)
+    }
+
+/*    protected fun finishBook() {
+        currentBook.isFinished = true // is that enough?
+    }*/
+
 
 
     protected open fun setImage() {

@@ -52,10 +52,6 @@ open class BaseActivity : NewDaggerActivity() {
         }
     }
 
-    protected fun populateList() {
-        viewModel.createList(currentBook)
-    }
-
     /*private fun startReaderActivity(readingData: ReadingData) {
         readingData.apply {
             when (book.isValidComicExtension()) {
