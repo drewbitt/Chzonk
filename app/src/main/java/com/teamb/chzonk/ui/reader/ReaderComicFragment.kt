@@ -25,7 +25,7 @@ open class ReaderComicFragment : DaggerFragment() {
 
     protected var position = 0
 
-  /*  override fun onCreateView(
+    /*  override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -46,12 +46,18 @@ open class ReaderComicFragment : DaggerFragment() {
             book = getParcelable(ARG_BOOK)!!
         }
 
-        val page0 = getPage0()
+        val page0 = try {
+            getPage0().toInt()
+        } catch (e: NumberFormatException) {
+            0
+        }
 
         // load GlideImage
+        // needs reference to imageView
+        // imageView.loadImage(GlideModel(book, page0, false))
     }
 
-    private fun getPage0() = viewModel.getReaderItemAt(position)?.page0
+    private fun getPage0() = viewModel.getReaderItemAt(position)?.page0 ?: ""
 
     protected fun ImageView.loadImage(source: Any, requestListener: RequestListener<Bitmap>) {
 
@@ -78,7 +84,6 @@ open class ReaderComicFragment : DaggerFragment() {
             }
         }
     }
-
 }
 
 // Probably getting pages here, actually loading the images with glide

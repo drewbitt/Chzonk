@@ -29,8 +29,6 @@ open class ReaderBaseActivity : BaseActivity() {
         currentBook.isFinished = true // is that enough?
     }*/
 
-
-
     protected open fun setImage() {
         // override in children
     }

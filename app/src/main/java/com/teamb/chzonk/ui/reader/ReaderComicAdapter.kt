@@ -14,7 +14,7 @@ class ReaderComicAdapter internal constructor(private val readerComicActivity: R
 
     @Inject lateinit var viewModel: ViewModel
 
-    // internal var mCurrentFragment: ReaderComicFragment? = null
+    // may need some overrides still
 
     override fun getCount(): Int = viewModel.getReaderListSize()
 
