@@ -24,7 +24,6 @@ open class BaseActivity : NewDaggerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initIntent(intent)
     }
 
