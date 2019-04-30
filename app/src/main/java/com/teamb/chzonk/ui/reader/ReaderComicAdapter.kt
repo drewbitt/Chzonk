@@ -16,13 +16,11 @@ class ReaderComicAdapter internal constructor(private val readerComicActivity: R
 
     // internal var mCurrentFragment: ReaderComicFragment? = null
 
-    override fun getCount(): Int {
-        TODO("not implemented")
-    }
+    override fun getCount(): Int = viewModel.getReaderListSize()
 
     override fun getItem(position: Int): ReaderComicFragment {
-        var book = readerComicActivity.currentBook
+        val book = readerComicActivity.currentBook
         // new instance of reader comic fragment but do in a different way
-        return ReaderComicFragment()
+        return ReaderComicFragment.newInstance(book, position)
     }
 }

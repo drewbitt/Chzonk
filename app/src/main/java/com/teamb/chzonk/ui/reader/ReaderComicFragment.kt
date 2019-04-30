@@ -1,58 +1,85 @@
 package com.teamb.chzonk.ui.reader
 
-import androidx.fragment.app.Fragment
-import com.teamb.chzonk.R
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.ViewGroup
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.teamb.chzonk.DaggerApp
+import com.bumptech.glide.request.target.Target
+import com.teamb.chzonk.Constants.ARG_BOOK
+import com.teamb.chzonk.Constants.ARG_POSITION
 import com.teamb.chzonk.data.ViewModel
-import com.teamb.chzonk.data.model.GlideModel
+import com.teamb.chzonk.data.model.Book
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-open class ReaderComicFragment : Fragment() {
+open class ReaderComicFragment : DaggerFragment() {
 
-    lateinit var viewModel: ViewModel
+    @Inject lateinit var viewModel: ViewModel
 
-    override fun onCreateView(
+    lateinit var book: Book
+    lateinit var readerComicActivity: ReaderComicActivity
+
+    protected var position = 0
+
+  /*  override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_comic_reader, container, false)
+    }*/
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        readerComicActivity = activity as ReaderComicActivity
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        var imageView = view!!.findViewById<View>(R.id.image)
+        arguments?.apply {
+            position = getInt(ARG_POSITION)
+            book = getParcelable(ARG_BOOK)!!
+        }
 
-        viewModel.currentBook.observe( this, androidx.lifecycle.Observer {
-                result ->
-            result?.let {
-                Glide.with(activity!!)
-                    .load(GlideModel(it, 1, true))
-                    .apply(
-                        RequestOptions()
-                            .fitCenter()
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    )
-                    .into(imageView as ImageView)
+        val page0 = getPage0()
+
+        // load GlideImage
+    }
+
+    private fun getPage0() = viewModel.getReaderItemAt(position)?.page0
+
+    protected fun ImageView.loadImage(source: Any, requestListener: RequestListener<Bitmap>) {
+
+        val requestOptions = RequestOptions()
+            .format(DecodeFormat.PREFER_RGB_565)
+            .skipMemoryCache(true)
+            .override(Target.SIZE_ORIGINAL)
+
+        Glide.with(this@ReaderComicFragment)
+            .asBitmap()
+            .load(source)
+            .apply(requestOptions)
+            .listener(requestListener)
+            .into(this)
+    }
+
+    companion object {
+        fun newInstance(book: Book, position: Int): ReaderComicFragment {
+            return ReaderComicFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_BOOK, book)
+                    putInt(ARG_POSITION, position)
+                }
             }
-        })
+        }
     }
-
-
 
 }
-
-// not sure if can really use a DaggerFragment here or need a custom class with leanback
 
 // Probably getting pages here, actually loading the images with glide
 // I might make this a base class so that you could have separate dual and single panel classes, and bind

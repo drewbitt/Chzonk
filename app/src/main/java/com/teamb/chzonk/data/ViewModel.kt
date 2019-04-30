@@ -1,5 +1,4 @@
 package com.teamb.chzonk.data
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.repository.FileRepository
@@ -12,11 +11,12 @@ class ViewModel(
     private var readerRepository: ReaderRepository
 ) : ViewModel() {
 
-    var currentBook = MutableLiveData<Book>()
+/*    // var currentBook = MutableLiveData<Book>()
 
     internal fun setCurrentBook(book: Book) {
         currentBook.value = book
-    }
+    }*/
+
     // readerRepository
     internal fun getReaderItemAt(position: Int) = readerRepository.getItemAt(position)
 

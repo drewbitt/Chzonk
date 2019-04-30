@@ -13,10 +13,10 @@ import com.teamb.chzonk.ui.reader.ReaderComicFragment
 import com.teamb.chzonk.ui.settings.SettingsFragment
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 
-@Component(modules = [(AndroidInjectionModule::class), (AppModule::class), (InjectorsModule::class)])
+@Component(modules = [(AndroidSupportInjectionModule::class), (AppModule::class), (InjectorsModule::class)])
 interface AppComponent : AndroidInjector<DaggerApp> {
 
     override fun inject(daggerApp: DaggerApp)
