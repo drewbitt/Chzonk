@@ -57,6 +57,7 @@ class LibraryFragment : RowsSupportFragment(){
     }
 
     private fun sortCardRow(cardRow: CardRow): CardRow {
+        // sort cardrow by book title
         for (i in 0 until (cardRow.cards.size - 1) step 1)
             for (j in i + 1 until cardRow.cards.size step 1)
                 if (cardRow.cards[i].book.title > cardRow.cards[j].book.title) {
@@ -72,6 +73,7 @@ class LibraryFragment : RowsSupportFragment(){
         var categoryName = "Library"
         var adapter = ArrayObjectAdapter(cardPresenter)
 
+        // seperate cardrow into cardlistrows of 4 cards
         for (i in 1..cardRow.cards.size step 1){
             adapter.add(cardRow.cards[i-1])
             if (i % 4 == 0){
