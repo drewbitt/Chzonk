@@ -1,14 +1,11 @@
 package com.teamb.chzonk.ui.reader
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.request.RequestOptions
@@ -19,11 +16,7 @@ import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.Book
-import dagger.android.support.DaggerFragment
 import com.teamb.chzonk.data.model.GlideModel
-import com.teamb.chzonk.data.model.Page
-import com.teamb.chzonk.ui.base.BaseActivity
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 open class ReaderComicFragment : Fragment() {

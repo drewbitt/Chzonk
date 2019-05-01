@@ -2,6 +2,7 @@ package com.teamb.chzonk.dagger
 
 import android.content.Context
 import com.teamb.chzonk.DaggerApp
+import com.teamb.chzonk.dagger.scopes.AppScope
 import com.teamb.chzonk.data.glide.ComicGlideModule
 import com.teamb.chzonk.data.glide.LocallibDataFetcher
 import com.teamb.chzonk.data.repository.FileRepository
@@ -16,6 +17,7 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 
+@AppScope
 @Component(modules = [(AndroidSupportInjectionModule::class), (AppModule::class), (InjectorsModule::class)])
 interface AppComponent : AndroidInjector<DaggerApp> {
 
