@@ -5,16 +5,18 @@ import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.data.glide.ComicGlideModule
 import com.teamb.chzonk.data.glide.LocallibDataFetcher
 import com.teamb.chzonk.data.repository.FileRepository
+import com.teamb.chzonk.ui.MainActivity
 import com.teamb.chzonk.ui.MainFragment
 import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.reader.ReaderComicAdapter
+import com.teamb.chzonk.ui.reader.ReaderComicFragment
 import com.teamb.chzonk.ui.settings.SettingsFragment
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 
-@Component(modules = [(AndroidInjectionModule::class), (AppModule::class), (InjectorsModule::class)])
+@Component(modules = [(AndroidSupportInjectionModule::class), (AppModule::class), (InjectorsModule::class)])
 interface AppComponent : AndroidInjector<DaggerApp> {
 
     override fun inject(daggerApp: DaggerApp)
@@ -26,6 +28,8 @@ interface AppComponent : AndroidInjector<DaggerApp> {
     fun inject(mainFragment: MainFragment)
     fun inject(prefsFragment: SettingsFragment.PrefsFragment)
     fun inject(readerComicAdapter: ReaderComicAdapter)
+    fun inject(readerComicFragment: ReaderComicFragment)
+    fun inject(mainActivity: MainActivity)
 
     @Component.Builder
     interface Builder {

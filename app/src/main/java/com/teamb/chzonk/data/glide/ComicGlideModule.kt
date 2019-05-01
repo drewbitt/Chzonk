@@ -34,4 +34,5 @@ class ComicGlideModule : AppGlideModule() {
             .toLong()
         builder.setMemoryCache(LruResourceCache(memoryCacheSize))
     }
+
 }

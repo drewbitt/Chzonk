@@ -101,7 +101,7 @@ open class FileRepository {
                 daoList.forEach {
                     newList = deleteFile(it)
                 }
-                newList.observeForever{
+                newList.observeForever {
                     addAllInList(newFileList)
                 }
             } else {

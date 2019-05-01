@@ -17,11 +17,14 @@ import javax.inject.Inject
 @SuppressLint("Registered")
 open class BaseActivity : NewDaggerActivity() {
 
-    @Inject lateinit var sharedPrefsHelper: SharedPrefsHelper
-    @Inject lateinit var viewModel: ViewModel
-    @Inject lateinit var fileDao: FileDao // TESTING
+    @Inject
+    lateinit var sharedPrefsHelper: SharedPrefsHelper
+    @Inject
+    lateinit var viewModel: ViewModel
+    @Inject
+    lateinit var fileDao: FileDao // TESTING
 
-    internal lateinit var currentBook: Book
+    lateinit var currentBook: Book
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +47,27 @@ open class BaseActivity : NewDaggerActivity() {
             false -> try {
                 toast("File does not exist")
             } catch (e: Exception) {
-                Timber.d("Couldn't toast") }
+                Timber.d("Couldn't toast")
+            }
         }
     }
+
+    /*private fun startReaderActivity(readingData: ReadingData) {
+        readingData.apply {
+            when (book.isValidComicExtension()) {
+                true -> {
+                    val intent1 = Intent(this@BaseActivity, ReaderComicActivity::class.java)
+                    intent1.putExtra(Constants.ARG_BOOK, book)
+                    viewModel.setCurrentBook(readingData.book)
+                    intent = intent1
+                }
+                false -> toast("File extension not supported") // may check earlier
+            }
+
+            this@BaseActivity.startActivity(intent)
+        }
+    }
+    */
 
     private fun startReaderActivity(readingData: ReadingData) {
         readingData.apply {

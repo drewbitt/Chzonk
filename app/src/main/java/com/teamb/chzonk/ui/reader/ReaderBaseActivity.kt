@@ -12,7 +12,7 @@ open class ReaderBaseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // setContentView(R.layout.activity_reader)
         title = currentBook.title
     }
 
@@ -20,6 +20,14 @@ open class ReaderBaseActivity : BaseActivity() {
         super.onNewIntent(intent)
         title = currentBook.title
     }
+
+    protected fun populateList() {
+        viewModel.createList(currentBook)
+    }
+
+/*    protected fun finishBook() {
+        currentBook.isFinished = true // is that enough?
+    }*/
 
     protected open fun setImage() {
         // override in children
