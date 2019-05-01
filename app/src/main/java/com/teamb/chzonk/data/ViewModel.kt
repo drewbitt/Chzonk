@@ -11,12 +11,6 @@ class ViewModel(
     private var readerRepository: ReaderRepository
 ) : ViewModel() {
 
-/*    // var currentBook = MutableLiveData<Book>()
-
-    internal fun setCurrentBook(book: Book) {
-        currentBook.value = book
-    }*/
-
     // readerRepository
     internal fun getReaderItemAt(position: Int) = readerRepository.getItemAt(position)
 
