@@ -1,6 +1,5 @@
 package com.teamb.chzonk.ui.base;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentActivity;

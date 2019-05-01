@@ -68,6 +68,8 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'androidx.leanback:leanback:1.1.0-alpha01'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    kapt "androidx.room:room-compiler:2.1.0-alpha07"
+    implementation "androidx.room:room-runtime:2.1.0-alpha07"
 
     // Androidx Lifecycle
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle_version"
@@ -90,7 +92,8 @@ dependencies {
     // Other
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.jetbrains.anko:anko:0.10.8'
-    implementation 'com.github.hedzr:android-file-chooser:v1.1.16'
+    implementation 'com.github.hedzr:android-file-chooser:v1.1.19'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 
     implementation project(path: ':locallib')
 }

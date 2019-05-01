@@ -6,6 +6,7 @@ import com.bumptech.glide.load.model.ModelLoaderFactory
 import com.bumptech.glide.load.model.MultiModelLoaderFactory
 import com.bumptech.glide.signature.ObjectKey
 import com.teamb.chzonk.data.model.GlideModel
+import timber.log.Timber
 import java.io.InputStream
 
 internal class LocallibFactory : ModelLoader<GlideModel, InputStream> {
@@ -24,11 +25,12 @@ internal class LocallibFactory : ModelLoader<GlideModel, InputStream> {
     }
     internal class Factory : ModelLoaderFactory<GlideModel, InputStream> {
         override fun build(multiFactory: MultiModelLoaderFactory): ModelLoader<GlideModel, InputStream> {
+            Timber.log(1, "Hit")
             return LocallibFactory()
         }
 
         override fun teardown() {
-            TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+            // Not needed
         }
     }
 }
