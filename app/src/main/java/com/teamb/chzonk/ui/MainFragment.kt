@@ -37,6 +37,7 @@ import androidx.leanback.widget.PageRow
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
+import androidx.leanback.widget.TitleViewAdapter
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
 import com.teamb.chzonk.Settings
@@ -93,6 +94,7 @@ class MainFragment : BrowseSupportFragment() {
 
     private fun setupUIElements() {
         title = getString(R.string.browse_title)
+
         // over title
         headersState = BrowseFragment.HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true

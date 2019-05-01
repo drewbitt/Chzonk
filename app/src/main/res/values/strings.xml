@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Chzonk</string>
+    <string name="app_name">RedDoor Comic Viewer</string>
     <string name="title_activity_main">RedDoor Comic Viewer</string>
-    <string name="browse_title"><![CDATA[Chzonk]]></string>
+    <string name="browse_title"><![CDATA[RedDoor Comic Viewer]]></string>
     <string name="error_fragment">Error Fragment</string>
     <string name="personal_settings">Personal Settings</string>
 
