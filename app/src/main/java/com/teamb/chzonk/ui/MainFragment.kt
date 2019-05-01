@@ -14,43 +14,54 @@
 
 package com.teamb.chzonk.ui
 
-import java.util.Timer
-
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.leanback.app.BackgroundManager
+import androidx.leanback.app.BrowseFragment
+import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.OnItemViewSelectedListener
+import androidx.leanback.widget.PageRow
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat
-import android.util.DisplayMetrics
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.leanback.app.BrowseFragment
+import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
-
+import com.teamb.chzonk.Settings
+import com.teamb.chzonk.data.ViewModel
+import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.settings.SettingsActivity
+import org.jetbrains.anko.support.v4.toast
+import java.util.Timer
+import javax.inject.Inject
 
 /**
  * Loads a grid of cards with movies to browse.
  */
-class MainFragment : BrowseFragment() {
+class MainFragment : BrowseSupportFragment() {
 
     private lateinit var mBackgroundManager: BackgroundManager
     private var mDefaultBackground: Drawable? = null
     private lateinit var mMetrics: DisplayMetrics
     private var mBackgroundTimer: Timer? = null
+
+    init {
+        DaggerApp.appComponent.inject(this)
+    }
+    @Inject
+    lateinit var viewModel: ViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -73,6 +84,8 @@ class MainFragment : BrowseFragment() {
 
         mBackgroundManager = BackgroundManager.getInstance(activity)
         mBackgroundManager.attach(activity!!.window)
+        mainFragmentRegistry.registerFragment(PageRow::class.java,
+            PageRowFragmentFactory(mBackgroundManager))
         mDefaultBackground = ContextCompat.getDrawable(context!!, R.drawable.default_background)
         mMetrics = DisplayMetrics()
         activity!!.windowManager.defaultDisplay.getMetrics(mMetrics)
@@ -93,22 +106,34 @@ class MainFragment : BrowseFragment() {
     private fun loadRows() {
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
+        adapter = rowsAdapter
 
-        val gridHeader = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
+        val header1 = HeaderItem(NUM_ROWS.toLong(), "LIBRARY")
+        val pageRow1 = PageRow(header1)
 
+        val header2 = HeaderItem(NUM_ROWS.toLong(), "PREFERENCES")
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
+        gridRowAdapter.add(getString(R.string.refresh_library))
         gridRowAdapter.add(getString(R.string.error_fragment))
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
-        rowsAdapter.add(ListRow(gridHeader, gridRowAdapter))
 
-        adapter = rowsAdapter
+        rowsAdapter.add(pageRow1)
+        rowsAdapter.add(ListRow(header2, gridRowAdapter))
     }
 
+    private class PageRowFragmentFactory internal constructor(private val mBackgroundManager: BackgroundManager) :
+        BrowseSupportFragment.FragmentFactory<androidx.fragment.app.Fragment>() {
+        override fun createFragment(row: Any?): androidx.fragment.app.Fragment {
+            mBackgroundManager.drawable = null
+            return LibraryFragment()
+        }
+    }
+
+    // everything below here non-library code
     private fun setupEventListeners() {
         setOnSearchClickedListener {
-            Toast.makeText(context, "Implement your own in-app search", Toast.LENGTH_LONG)
-                .show()
+            toast("Implement your own in-app search")
         }
 
         onItemViewClickedListener = ItemViewClickedListener()
@@ -128,14 +153,16 @@ class MainFragment : BrowseFragment() {
                         val intent = Intent(context, BrowseErrorActivity::class.java)
                         startActivity(intent)
                     }
-                    item.contains("Personal Settings") -> {
+                    item.contains(getString(R.string.personal_settings)) -> {
                         val intent = Intent(context, SettingsActivity::class.java)
                         val bundle =
-                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!).toBundle()
                         startActivity(intent, bundle)
                     }
-
-                    else -> Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+                    item.contains(getString(R.string.refresh_library)) -> {
+                        viewModel.refreshFiles(Settings.DOWNLOAD_DIRECTORY, false)
+                        toast("Refreshed library")
+                    }
                 }
             }
         }

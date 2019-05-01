@@ -15,12 +15,17 @@
 package com.teamb.chzonk.ui
 
 import android.os.Bundle
+import com.teamb.chzonk.BuildConfig
 import com.teamb.chzonk.R
 import com.teamb.chzonk.ui.base.BaseActivity
+import timber.log.Timber
 
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (BuildConfig.DEBUG)
+            Timber.plant(Timber.DebugTree())
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
