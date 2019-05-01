@@ -3,9 +3,12 @@ package com.teamb.chzonk.ui.reader
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.leanback.widget.Visibility
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.request.RequestOptions
@@ -26,6 +29,7 @@ open class ReaderComicFragment : Fragment() {
 
     lateinit var book: Book
     lateinit var readerComicActivity: ReaderComicActivity
+    private var isOnePageSetUp: Boolean = true
 
     protected var position = 0
 
@@ -36,7 +40,6 @@ open class ReaderComicFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         readerComicActivity = activity as ReaderComicActivity
-        //viewModel = (activity as BaseActivity).viewModel
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
@@ -55,6 +58,14 @@ open class ReaderComicFragment : Fragment() {
             book = getParcelable(ARG_BOOK)!!
         }
 
+        if (isOnePageSetUp) {
+            onePageImageLoad(view)
+        } else {
+            dualPageImageLoad(view)
+        }
+    }
+
+    private fun onePageImageLoad(view: View) {
         val page0 = try {
             getPage0().toInt()
         } catch (e: NumberFormatException) {
@@ -63,16 +74,32 @@ open class ReaderComicFragment : Fragment() {
 
         // load GlideImage
         // needs reference to imageView
-        val imageView = view.findViewById<View>(R.id.imageView)
-        (imageView as ImageView).loadImage(GlideModel(book, page0, false))
+        val imageView1 = view.findViewById<View>(R.id.imageView1)
+        val imageView2 = view.findViewById<View>(R.id.imageView2)
+        imageView2.visibility = GONE
+        (imageView1 as ImageView).loadImage(GlideModel(book, page0, false))
     }
 
-    private fun getPage0() = viewModel.getReaderItemAt(position)?.page0 ?: ""
+    private fun dualPageImageLoad(view: View) {
+        val page0 = try {
+            getPage0().toInt()
+        } catch (e: NumberFormatException) {
+            0
+        }
+        val imageView1 = view.findViewById<View>(R.id.imageView1)
+        val imageView2 = view.findViewById<View>(R.id.imageView2)
+        imageView2.visibility = VISIBLE
+        (imageView1 as ImageView).loadImage(GlideModel(book, page0, false))
+        (imageView2 as ImageView).loadImage(GlideModel(book, page0 + 1, false))
+    }
+
+    private fun getPage0() = viewModel.getReaderItemAt(book, position)?.page0 ?: ""
 
     protected fun ImageView.loadImage(source: Any) {
 
         val requestOptions = RequestOptions()
             .format(DecodeFormat.PREFER_RGB_565)
+            .centerCrop()
             .skipMemoryCache(true)
             .override(Target.SIZE_ORIGINAL)
 
@@ -95,6 +122,3 @@ open class ReaderComicFragment : Fragment() {
     }
 }
 
-// Probably getting pages here, actually loading the images with glide
-// I might make this a base class so that you could have separate dual and single panel classes, and bind
-// their individual necessary views accordingly.

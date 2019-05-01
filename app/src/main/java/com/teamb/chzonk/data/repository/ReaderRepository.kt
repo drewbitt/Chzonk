@@ -13,6 +13,15 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
 
     internal fun getReaderListSize(book: Book) = createLocalList(book).size
 
+    internal fun getItemAt(book: Book, position: Int): Page? {
+        try {
+            return createLocalList(book)[position]
+        } catch (e: IndexOutOfBoundsException) {
+            Timber.e("Reader item not found at position[$position]")
+        }
+        return null
+    }
+
     internal fun getItemAt(position: Int): Page? {
         try {
             return readerList[position]

@@ -20,6 +20,8 @@ class ViewModel(
     // readerRepository
     internal fun getReaderItemAt(position: Int) = readerRepository.getItemAt(position)
 
+    internal fun getReaderItemAt(book: Book, position: Int) = readerRepository.getItemAt(book, position)
+
     internal fun getReaderListSize() = readerRepository.getListSize()
 
     internal fun createList(book: Book) = readerRepository.createLocalList(book)
