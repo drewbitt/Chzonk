@@ -24,6 +24,8 @@ class ViewModel(
 
     internal fun createList(book: Book) = readerRepository.createLocalList(book)
 
+    internal fun getReaderListSize(book: Book) = readerRepository.getReaderListSize(book)
+
     // locallib repository
 
     internal fun cleanupParser() = locallibRepository.cleanupParser()

@@ -11,6 +11,8 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
 
     internal fun getListSize() = readerList.size
 
+    internal fun getReaderListSize(book: Book) = createLocalList(book).size
+
     internal fun getItemAt(position: Int): Page? {
         try {
             return readerList[position]

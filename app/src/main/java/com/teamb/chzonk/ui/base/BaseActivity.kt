@@ -73,8 +73,9 @@ open class BaseActivity : NewDaggerActivity() {
         readingData.apply {
             when (book.isValidComicExtension()) {
                 true -> {
-                    val intent = Intent(this@BaseActivity, ReaderComicActivity::class.java)
-                    intent.putExtra(Constants.ARG_BOOK, book)
+                    val intent1 = Intent(this@BaseActivity, ReaderComicActivity::class.java)
+                    intent1.putExtra(Constants.ARG_BOOK, book)
+                    intent = intent1
                 }
                 false -> toast("File extension not supported") // may check earlier
             }
