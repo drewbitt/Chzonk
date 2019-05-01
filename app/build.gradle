@@ -93,7 +93,6 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.jetbrains.anko:anko:0.10.8'
     implementation 'com.github.hedzr:android-file-chooser:v1.1.19'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 
     implementation project(path: ':locallib')
 }
