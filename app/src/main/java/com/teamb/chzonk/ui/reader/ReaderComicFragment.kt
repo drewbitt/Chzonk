@@ -8,7 +8,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.leanback.widget.Visibility
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.request.RequestOptions
@@ -42,8 +41,12 @@ open class ReaderComicFragment : Fragment() {
         readerComicActivity = activity as ReaderComicActivity
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
-    Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState:
+        Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Creates the view controlled by the fragment
         val view = inflater.inflate(R.layout.fragment_comic_reader, container, false)
@@ -72,8 +75,6 @@ open class ReaderComicFragment : Fragment() {
             0
         }
 
-        // load GlideImage
-        // needs reference to imageView
         val imageView1 = view.findViewById<View>(R.id.imageView1)
         val imageView2 = view.findViewById<View>(R.id.imageView2)
         imageView2.visibility = GONE
@@ -121,4 +122,3 @@ open class ReaderComicFragment : Fragment() {
         }
     }
 }
-

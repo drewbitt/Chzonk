@@ -38,7 +38,7 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
             .into(cardView.mainImageView)
-        if(card.book.isFinished)
+        if (card.book.isFinished)
             cardView.mainImageView.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY)
     }
 
