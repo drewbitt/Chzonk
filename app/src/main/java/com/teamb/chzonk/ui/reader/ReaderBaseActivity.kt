@@ -3,6 +3,7 @@ package com.teamb.chzonk.ui.reader
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import com.teamb.chzonk.R
 import com.teamb.chzonk.ui.base.BaseActivity
 
 @SuppressLint("Registered")
@@ -12,7 +13,7 @@ open class ReaderBaseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_reader)
+        setContentView(R.layout.activity_reader)
         title = currentBook.title
     }
 
