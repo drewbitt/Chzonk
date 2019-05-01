@@ -73,6 +73,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
+    // Page Viewer RTL
+    implementation 'com.duolingo.open:rtl-viewpager:1.0.3'
+
     // Androidx Lifecycle
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle_version"
     // implementation "androidx.lifecycle:lifecycle-extensions-ktx:$rootProject.lifecycle_version"
