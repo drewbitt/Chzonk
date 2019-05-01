@@ -15,8 +15,8 @@ open class ReaderComicActivity : ReaderBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         populateList()
-        viewPager = findViewById<ViewPager>(R.id.viewPager) as ViewPager
-        readerComicAdapter = ReaderComicAdapter( this@ReaderComicActivity, viewModel)
+        viewPager = findViewById(R.id.viewPager)
+        readerComicAdapter = ReaderComicAdapter(this@ReaderComicActivity, viewModel)
         viewPager.adapter = readerComicAdapter
     }
 
