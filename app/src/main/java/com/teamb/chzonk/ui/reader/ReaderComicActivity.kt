@@ -52,11 +52,22 @@ open class ReaderComicActivity : ReaderBaseActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
-            KeyEvent.KEYCODE_ENTER -> {enterCodeFun(fabPostion)}
+            KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {enterCodeFun(fabPostion)}
             KeyEvent.KEYCODE_DPAD_UP -> { if (fabPostion == 0) fabPostion = 1 else fabPostion = 2 }
             KeyEvent.KEYCODE_DPAD_DOWN -> {if (fabPostion == 2) fabPostion = 1 else fabPostion = 0}
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    private fun colorSelectedFab(fabPosition: Int) {
+        when(fabPosition) {
+            1 -> {
+                val fab = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
+                //fab.alpha = Int().toFloat()}
+            }
+            2 -> {}
+            else -> {}
+        }
     }
 
     private fun enterCodeFun(numOfPresses: Int) {
