@@ -12,6 +12,7 @@ import com.teamb.chzonk.ui.library.LibraryFragment
 import com.teamb.chzonk.ui.reader.ReaderComicAdapter
 import com.teamb.chzonk.ui.reader.ReaderComicFragment
 import com.teamb.chzonk.ui.settings.SettingsFragment
+import com.teamb.chzonk.util.SingleToDualList
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -32,6 +33,7 @@ interface AppComponent : AndroidInjector<DaggerApp> {
     fun inject(readerComicAdapter: ReaderComicAdapter)
     fun inject(readerComicFragment: ReaderComicFragment)
     fun inject(mainActivity: MainActivity)
+    fun inject(singleToDualList: SingleToDualList)
 
     @Component.Builder
     interface Builder {

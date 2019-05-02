@@ -27,11 +27,15 @@ class ViewModel(
 
     internal fun setSingleList(list: List<Page>) = readerRepository.setSinglePaneList(list)
 
-    // internal fun setDualList(list: List<Page>) = readerRepository.setDualPaneList(list)
+    internal fun setDualList(list: List<Page>) = readerRepository.setDualPaneList(list)
+
+    internal fun singleToDualLocal(list: List<Page>) = readerRepository.singleToDualLocal(list)
 
     internal fun setReaderListType() = readerRepository.setReaderListType()
 
     internal fun getReaderTrueIndexAt(position: Int) = readerRepository.getReaderTrueIndexAt(position)
+
+    internal fun isReaderDualPaneListEmpty() = readerRepository.isReaderDualPaneListEmpty()
 
     // locallib repository
 

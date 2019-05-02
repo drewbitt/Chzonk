@@ -4,6 +4,7 @@ import com.teamb.chzonk.Constants
 import com.teamb.chzonk.Settings
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.Page
+import com.teamb.chzonk.util.SingleToDualList
 import com.teamb.locallib.Main
 import timber.log.Timber
 
@@ -33,7 +34,9 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
         singlePaneList.addAll(list)
     }
 
-    /*// dual
+    // dual
+    internal fun isReaderDualPaneListEmpty() = dualPaneList.isEmpty()
+
     private val dualPaneList = mutableListOf<Page>()
 
     internal fun setDualPaneList(list: List<Page>) {
@@ -41,8 +44,8 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
         dualPaneList.addAll(list)
     }
 
-    internal fun isReaderDualPaneListEmpty() = dualPaneList.isEmpty()
-    */
+    internal fun singleToDualLocal(list: List<Page>) = SingleToDualList(list).liveDataResult
+
 
     private fun setReaderList(list: List<Page>) {
         readerList.clear()

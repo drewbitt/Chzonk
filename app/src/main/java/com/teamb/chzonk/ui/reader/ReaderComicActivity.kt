@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ProgressBar
-import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import com.teamb.chzonk.R
 import com.teamb.chzonk.Settings
@@ -17,30 +16,27 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        populateList()
-        viewPager = findViewById(R.id.viewPager)
-        readerComicAdapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
-        viewPager.adapter = readerComicAdapter
 
-        readerViewModel.currentBook.value = currentBook
+        viewPager = findViewById(R.id.viewPager)
+        readerComicAdapter = ReaderComicAdapter(this@ReaderComicActivity)
+        viewPager.adapter = readerComicAdapter
+        populateList()
 
         setUpPageViewFAB()
         setUpRTLFAB()
         setUpProgressFAB()
 
-        readerViewModel.getCurrentPage().observe(this, Observer { setUpProgressBar(it) })
+        /*readerViewModel.getCurrentPage().observe(this, Observer { setUpProgressBar(it) })
         readerViewModel.getLayoutDirection().observe(this,
-            Observer { findViewById<RelativeLayout>(R.id.reader_layout).layoutDirection = it })
+            Observer { findViewById<RelativeLayout>(R.id.reader_layout).layoutDirection = it })*/
     }
 
     private fun onListChanged() {
         viewModel.setReaderListType()
         viewPager.adapter = null
-        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
-        /*val position = viewModel.getReaderTrueIndexAt(currentBook.currentPage)
+        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity)
+        val position = viewModel.getReaderTrueIndexAt(currentBook.currentPage)
         viewPager.currentItem = position
-        */
-        viewPager.currentItem = currentBook.currentPage
     }
 
     private fun startSingleMode() {
@@ -49,8 +45,13 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
     }
 
     private fun startDualMode() {
-        populateDualPanelList()
-        onListChanged()
+        populateSinglePanelList()
+        when (viewModel.isReaderDualPaneListEmpty()) {
+            true ->
+                populateDualPaneList().observe(this, Observer { onListChanged()})
+            false ->
+                onListChanged()
+        }
     }
 
     private fun populateList() {
@@ -64,7 +65,7 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         try {
             val position = viewPager.currentItem
             viewPager.adapter = null
-            viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
+            viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity)
             viewPager.currentItem = position
         } catch (e: Exception) {
             // do nothing
@@ -80,5 +81,25 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         populateList()
+    }
+
+    override fun goToPreviousPage() {
+        viewPager.currentItem = viewPager.currentItem - 1
+    }
+
+    override fun goToNextPage() {
+        viewPager.currentItem = viewPager.currentItem + 1
+    }
+
+    protected fun initListeners() {
+        viewPager.clearOnPageChangeListeners()
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+            }
+        })
     }
 }

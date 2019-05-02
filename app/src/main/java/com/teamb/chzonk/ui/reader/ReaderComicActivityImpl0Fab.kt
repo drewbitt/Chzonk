@@ -4,23 +4,19 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import androidx.lifecycle.ViewModelProviders
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.teamb.chzonk.R
 import com.teamb.chzonk.Settings
-import com.teamb.chzonk.data.ReaderViewModel
 
 @SuppressLint("Registered")
 open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
-    protected lateinit var readerViewModel: ReaderViewModel
     protected var fabPostion: Int = 0
     protected val showRTLFAB: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        readerViewModel = ViewModelProviders.of(this).get(ReaderViewModel::class.java)
     }
 
     protected fun colorSelectedFab(fabPosition: Int) {
@@ -85,19 +81,10 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
     protected fun setUpRTLFAB() {
         val fabb = findViewById<FloatingActionButton>(R.id.action_b) as FloatingActionButton
-        if (showRTLFAB) {
-            if (readerViewModel.layoutDirection.value!! == 0) {
-                fabb.setOnClickListener { onRTLClick(1) }
-            } else {
-                fabb.setOnClickListener { onRTLClick(0) }
-            }
-        } else {
-            fabb.visibility = View.GONE
-        }
     }
 
     private fun onRTLClick(int: Int) {
-        readerViewModel.layoutDirection.value = int
+        //readerViewModel.layoutDirection.value = int
         val faba = findViewById<FloatingActionButton>(R.id.action_b) as FloatingActionButton
         if (int == 0) {
             faba.setImageDrawable(getDrawable(R.drawable.ic_chevron_left_black_24dp))
@@ -119,6 +106,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
             faba.title = "Dual Page View"
         }
         collapseFABMenu()
+        // startActivity(intent)
     }
 
     private fun collapseFABMenu() {
