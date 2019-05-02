@@ -1,15 +1,23 @@
 package com.teamb.chzonk.ui.reader
 
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.teamb.chzonk.DaggerApp
+import com.teamb.chzonk.data.ReaderViewModel
 import com.teamb.chzonk.data.ViewModel
+import javax.inject.Inject
 
 class ReaderComicAdapter internal constructor(
     private val readerComicActivity: ReaderComicActivity,
-    private val viewModel: ViewModel
+    private val readerViewModel: ReaderViewModel
 ) :
     FragmentStatePagerAdapter(readerComicActivity.supportFragmentManager) {
 
-    // may need some overrides still
+    @Inject
+    lateinit var viewModel: ViewModel
+
+    init {
+        DaggerApp.appComponent.inject(this)
+    }
 
     override fun getCount(): Int = viewModel.getReaderListSize(readerComicActivity.currentBook)
 
@@ -17,4 +25,6 @@ class ReaderComicAdapter internal constructor(
         val book = readerComicActivity.currentBook
         return ReaderComicFragment.newInstance(book, position)
     }
+
+    override fun getItemPosition(`object`: Any) = androidx.viewpager.widget.PagerAdapter.POSITION_NONE
 }

@@ -34,14 +34,6 @@ open class ReaderBaseActivity : BaseActivity() {
         // override in children
     }
 
-    protected fun overlayImage() {
-        // glide function
-    }
-
-    protected open fun setButtons() {
-        // override in children
-    }
-
     private fun setProgress() {
         // based off of current page #
     }
