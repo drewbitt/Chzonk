@@ -39,13 +39,13 @@ internal class InsertFile(book: Book) : FileRepository() {
         }
     }
 }
-internal class UpdateFile(book: Book): FileRepository() {
+internal class UpdateFile(book: Book) : FileRepository() {
     private val file = book.toComicFile()
     init {
-        executors.diskIO.execute{
-            try{
+        executors.diskIO.execute {
+            try {
                 fileDao.updateFile(file)
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 Timber.e("message[${e.message}] $book")
             }
         }

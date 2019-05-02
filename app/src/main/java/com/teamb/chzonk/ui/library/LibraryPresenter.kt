@@ -9,21 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.obsez.android.lib.filechooser.internals.FileUtil
+import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
 import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
-import org.jetbrains.anko.image
 import javax.inject.Inject
 
 class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.style.DefaultCardTheme) : Presenter() {
@@ -31,6 +28,7 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
 
     init {
         mContext = ContextThemeWrapper(context, cardThemeResId)
+        DaggerApp.appComponent.inject(this)
     }
     @Inject
     lateinit var viewModel: ViewModel
@@ -52,22 +50,14 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
             .into(cardView.mainImageView)
-        if(card.book.isFinished) {
+        if (card.book.isFinished) {
             cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
             cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
         }
 
         viewHolder.view.setOnLongClickListener(View.OnLongClickListener {
             val popupView = LayoutInflater.from(mContext).inflate(R.layout.popup_window, null)
-//            val checkBox = popupView.findViewById(R.id.readBookCheck) as CheckBox
-//            checkBox.setChecked(card.book.is)
-//            themeSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-//                changeTheme(
-//                    isChecked
-//                )
-//            })
             val bookTitle = card.book.title
-//            val isFinished = card.book.isFinished
             val image = popupView.findViewById<ImageView>(R.id.comicImage)
             val title = popupView.findViewById<View>(R.id.title) as TextView
             val isFinished = popupView.findViewById<View>(R.id.readBookCheck) as CheckBox
@@ -77,6 +67,9 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
                 .setPositiveButton("Save") { dialog, which ->
                     card.book.isFinished = isFinished.isChecked
                     viewModel.updateFinished(card.book)
+                    cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
+                    cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
+                    cardView.refreshDrawableState()
                 }
                 .setNegativeButton(
                     "Cancel"
@@ -109,7 +102,6 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
     private fun onCreateView(): ImageCardView {
         return ImageCardView(mContext)
     }
-    private fun clickedLong(){
-
+    private fun clickedLong() {
     }
 }

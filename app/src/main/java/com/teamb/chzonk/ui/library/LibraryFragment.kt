@@ -1,7 +1,6 @@
 package com.teamb.chzonk.ui.library
 
 import android.os.Bundle
-import android.view.View
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
