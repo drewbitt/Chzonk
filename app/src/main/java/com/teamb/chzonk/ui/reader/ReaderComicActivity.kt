@@ -16,7 +16,6 @@ import com.teamb.chzonk.R
 import com.teamb.chzonk.data.ReaderViewModel
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import kotlin.math.min
 
 @SuppressLint("Registered")
 open class ReaderComicActivity : ReaderBaseActivity() {
@@ -26,8 +25,6 @@ open class ReaderComicActivity : ReaderBaseActivity() {
     private lateinit var readerViewModel: ReaderViewModel
     private val showRTLFAB: Boolean = false
     private var fabPostion: Int = 0
-    private var upPostion: Int = 0
-    private var downPostion: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,22 +48,41 @@ open class ReaderComicActivity : ReaderBaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        when (keyCode) {
-            KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {enterCodeFun(fabPostion)}
-            KeyEvent.KEYCODE_DPAD_UP -> { if (fabPostion == 0) fabPostion = 1 else fabPostion = 2 }
-            KeyEvent.KEYCODE_DPAD_DOWN -> {if (fabPostion == 2) fabPostion = 1 else fabPostion = 0}
+        if (!(findViewById<FloatingActionsMenu>(R.id.multiple_actions) as FloatingActionsMenu).isExpanded) {
+            fabPostion = 0
         }
+            when (keyCode) {
+                KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
+                    enterCodeFun(fabPostion)
+                }
+                KeyEvent.KEYCODE_DPAD_UP -> {
+                    if (fabPostion == 0) fabPostion = 1 else fabPostion = 2
+                    colorSelectedFab(fabPostion)
+                }
+                KeyEvent.KEYCODE_DPAD_DOWN -> {
+                    if (fabPostion == 2) fabPostion = 1 else fabPostion = 0
+                    colorSelectedFab(fabPostion)
+                }
+            }
         return super.onKeyDown(keyCode, event)
     }
 
     private fun colorSelectedFab(fabPosition: Int) {
+        val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
+        val fabc = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
         when(fabPosition) {
             1 -> {
-                val fab = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
-                //fab.alpha = Int().toFloat()}
+                fabc.alpha = 0.5.toFloat()
+                faba.alpha = 1.toFloat()
             }
-            2 -> {}
-            else -> {}
+            2 -> {
+                faba.alpha = 0.5.toFloat()
+                fabc.alpha = 1.toFloat()
+            }
+            else -> {
+                faba.alpha = 1.toFloat()
+                fabc.alpha = 1.toFloat()
+            }
         }
     }
 
