@@ -73,7 +73,7 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
     }
 
     private fun MutableList<Page>.sortByRtl(): MutableList<Page> {
-        //rtl mode needs to switch currentPage positions if non-single
+        // rtl mode needs to switch currentPage positions if non-single
         forEach {
             if (it.page1 != Constants.KEY_SINGLE_PAGE) {
                 val pageUrlList = mutableListOf<String>()

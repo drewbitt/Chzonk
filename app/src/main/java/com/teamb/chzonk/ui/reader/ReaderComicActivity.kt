@@ -19,7 +19,7 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         super.onCreate(savedInstanceState)
         populateList()
         viewPager = findViewById(R.id.viewPager)
-        readerComicAdapter = ReaderComicAdapter( this@ReaderComicActivity, readerViewModel)
+        readerComicAdapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
         viewPager.adapter = readerComicAdapter
 
         readerViewModel.currentBook.value = currentBook
@@ -31,7 +31,6 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         readerViewModel.getCurrentPage().observe(this, Observer { setUpProgressBar(it) })
         readerViewModel.getLayoutDirection().observe(this,
             Observer { findViewById<RelativeLayout>(R.id.reader_layout).layoutDirection = it })
-
     }
 
     private fun setUpProgressBar(int: Int) {
@@ -40,11 +39,8 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         progressBar.progress = int
     }
 
-
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         populateList()
     }
-
-
 }

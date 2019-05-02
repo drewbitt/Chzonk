@@ -33,7 +33,7 @@ open class ReaderBaseActivity : BaseActivity() {
     protected open fun setImage() {
         // override in children
     }
-    
+
     private fun setProgress() {
         // based off of current page #
     }

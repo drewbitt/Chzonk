@@ -40,7 +40,6 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
             .into(cardView.mainImageView)
         if (card.book.isFinished)
             cardView.mainImageView.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY)
-
     }
 
     override fun onUnbindViewHolder(viewHolder: ViewHolder?) = onUnbindViewHolder(viewHolder?.view as ImageCardView)

@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.teamb.chzonk.Constants.ARG_BOOK
 import com.teamb.chzonk.Constants.ARG_POSITION
 import com.teamb.chzonk.DaggerApp
@@ -25,7 +24,6 @@ import com.teamb.chzonk.data.model.GlideModel
 import javax.inject.Inject
 
 open class ReaderComicFragment : Fragment() {
-
 
     @Inject
     lateinit var viewModel: ViewModel
@@ -45,8 +43,7 @@ open class ReaderComicFragment : Fragment() {
         readerComicActivity = activity as ReaderComicActivity
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
-    Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Creates the view controlled by the fragment
         val view = inflater.inflate(R.layout.fragment_comic_reader, container, false)
@@ -71,10 +68,7 @@ open class ReaderComicFragment : Fragment() {
 
         readerViewModel.currentPage.value = position
         loadImages(view!!)
-
-
     }
-
 
     private fun loadImages(view: View) {
         if (readerViewModel.getIsSinglePageView().value!!) {
@@ -108,7 +102,6 @@ open class ReaderComicFragment : Fragment() {
         imageView2.visibility = VISIBLE
         (imageView1 as ImageView).loadImage(GlideModel(book, page0, false))
 
-
         if (page0 + 1 < viewModel.getReaderListSize(book)) {
             imageView2.visibility = VISIBLE
             (imageView2 as ImageView).loadImage(GlideModel(book, page0 + 1, false))
@@ -124,7 +117,7 @@ open class ReaderComicFragment : Fragment() {
         val requestOptions = RequestOptions()
             .format(DecodeFormat.PREFER_RGB_565)
             .fitCenter()
-            //.override(Target.SIZE_ORIGINAL)
+            // .override(Target.SIZE_ORIGINAL)
             .skipMemoryCache(true)
 
         Glide.with(this@ReaderComicFragment)
@@ -140,9 +133,7 @@ open class ReaderComicFragment : Fragment() {
         } else {
             readerViewModel.nextPageToShow.value = getPage0().toInt() + 1
         }
-
     }
-
 
     companion object {
         fun newInstance(book: Book, position: Int): ReaderComicFragment {
@@ -155,4 +146,3 @@ open class ReaderComicFragment : Fragment() {
         }
     }
 }
-

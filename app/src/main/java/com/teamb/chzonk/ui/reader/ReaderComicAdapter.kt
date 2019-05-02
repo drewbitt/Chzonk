@@ -6,7 +6,8 @@ import com.teamb.chzonk.data.ReaderViewModel
 import com.teamb.chzonk.data.ViewModel
 import javax.inject.Inject
 
-class ReaderComicAdapter internal constructor(private val readerComicActivity: ReaderComicActivity,
+class ReaderComicAdapter internal constructor(
+    private val readerComicActivity: ReaderComicActivity,
     private val readerViewModel: ReaderViewModel
 ) :
     FragmentStatePagerAdapter(readerComicActivity.supportFragmentManager) {
@@ -26,5 +27,4 @@ class ReaderComicAdapter internal constructor(private val readerComicActivity: R
     }
 
     override fun getItemPosition(`object`: Any) = androidx.viewpager.widget.PagerAdapter.POSITION_NONE
-
 }
