@@ -4,5 +4,6 @@
     <color name="fastlane_background">#F40B0E</color>
     <color name="search_opaque">#000000</color>
     <color name="default_background">#3d3d3d</color>
+    <color name="preference_card">#000000</color>
     <color name="main_background">#262626</color>
 </resources>

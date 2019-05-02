@@ -1,9 +1,12 @@
 package com.teamb.chzonk.ui.library
 
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
@@ -13,6 +16,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.teamb.chzonk.R
 import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
+import org.jetbrains.anko.sdk27.coroutines.onLongClick
+
+
 
 class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.style.DefaultCardTheme) : Presenter() {
     private val mContext: Context
@@ -52,5 +58,8 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
 
     private fun onCreateView(): ImageCardView {
         return ImageCardView(mContext)
+    }
+    private fun clickedLong(){
+
     }
 }
