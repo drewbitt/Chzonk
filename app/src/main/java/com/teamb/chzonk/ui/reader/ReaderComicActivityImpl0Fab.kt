@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.lifecycle.ViewModelProviders
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -52,9 +53,11 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
     protected fun expandOrCollapseMenu() {
         fabPostion = 0
         val menu = findViewById<FloatingActionsMenu>(R.id.multiple_actions) as FloatingActionsMenu
-        if (menu.isExpanded) {
-            menu.collapse()
+        val layout = findViewById<RelativeLayout>(R.id.fab_layout)
+        if (layout.visibility == View.VISIBLE) {
+            layout.visibility = View.GONE
         } else {
+            layout.visibility = View.VISIBLE
             menu.expand()
         }
     }
@@ -123,5 +126,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
         fabPostion = 0
         val fabMenu = findViewById<FloatingActionsMenu>(R.id.multiple_actions)
         fabMenu.collapse()
+        val fabLayout = findViewById<RelativeLayout>(R.id.fab_layout)
+        fabLayout.visibility = View.GONE
     }
 }

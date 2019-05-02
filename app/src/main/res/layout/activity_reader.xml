@@ -13,6 +13,14 @@
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="gone"
+                        android:id="@+id/fab_layout">
+
         <com.getbase.floatingactionbutton.FloatingActionsMenu
                 android:id="@+id/multiple_actions"
                 android:layout_width="wrap_content"
@@ -53,12 +61,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     fab:fab_colorNormal="@color/white"
-                    fab:fab_title="Hide Progress Bar"
+                    fab:fab_title="Show Progress Bar"
                     android:src="@drawable/ic_call_to_action_black_24dp"
                     fab:fab_colorPressed="@color/white_pressed"/>
 
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </RelativeLayout>
 
         <ProgressBar
                 android:id="@+id/determinateBar"
@@ -66,6 +75,7 @@
                 android:paddingEnd="150dp"
                 android:paddingStart="150dp"
                 android:layout_margin="@dimen/dp_10"
+                android:visibility="gone"
                 style="@style/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

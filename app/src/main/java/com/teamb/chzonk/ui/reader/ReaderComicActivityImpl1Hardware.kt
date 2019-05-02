@@ -2,14 +2,15 @@ package com.teamb.chzonk.ui.reader
 
 import android.annotation.SuppressLint
 import android.view.KeyEvent
-import com.getbase.floatingactionbutton.FloatingActionsMenu
+import android.view.View
+import android.widget.RelativeLayout
 import com.teamb.chzonk.R
 
 @SuppressLint("Registered")
 open class ReaderComicActivityImpl1Hardware : ReaderComicActivityImpl0Fab() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (!(findViewById<FloatingActionsMenu>(R.id.multiple_actions) as FloatingActionsMenu).isExpanded) {
+        if (findViewById<RelativeLayout>(R.id.fab_layout).visibility == View.GONE) {
             fabPostion = 0
         }
         when (keyCode) {
