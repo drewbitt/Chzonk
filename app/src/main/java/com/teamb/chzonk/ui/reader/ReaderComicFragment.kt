@@ -108,7 +108,14 @@ open class ReaderComicFragment : Fragment() {
         val imageView2 = view.findViewById<View>(R.id.imageView2)
         imageView2.visibility = VISIBLE
         (imageView1 as ImageView).loadImage(GlideModel(book, page0, false))
-        (imageView2 as ImageView).loadImage(GlideModel(book, page0 + 1, false))
+
+
+        if (page0 + 1 < viewModel.getReaderListSize(book)) {
+            imageView2.visibility = VISIBLE
+            (imageView2 as ImageView).loadImage(GlideModel(book, page0 + 1, false))
+        } else {
+            imageView2.visibility = GONE
+        }
     }
 
     private fun getPage0() = viewModel.getReaderItemAt(book, position)?.page0 ?: ""

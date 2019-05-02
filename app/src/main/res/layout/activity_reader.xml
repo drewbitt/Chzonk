@@ -31,6 +31,15 @@
                 android:alpha=".5">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/action_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_colorNormal="@color/white"
+                    fab:fab_title="Right to Left"
+                    android:src="@drawable/ic_chevron_left_black_24dp"
+                    fab:fab_colorPressed="@color/white_pressed"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,15 +55,6 @@
                     fab:fab_colorNormal="@color/white"
                     fab:fab_title="Hide Progress Bar"
                     android:src="@drawable/ic_call_to_action_black_24dp"
-                    fab:fab_colorPressed="@color/white_pressed"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/action_b"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    fab:fab_colorNormal="@color/white"
-                    fab:fab_title="Right to Left"
-                    android:src="@drawable/ic_chevron_left_black_24dp"
                     fab:fab_colorPressed="@color/white_pressed"/>
 
 

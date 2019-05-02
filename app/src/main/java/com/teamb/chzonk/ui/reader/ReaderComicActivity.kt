@@ -174,7 +174,7 @@ open class ReaderComicActivity : ReaderBaseActivity() {
 
     private fun setUpProgressBar(int: Int) {
         val progressBar = findViewById<ProgressBar>(R.id.determinateBar)
-        progressBar.max = viewModel.getReaderListSize(currentBook)
+        progressBar.max = viewModel.getReaderListSize(currentBook) - 1
         progressBar.progress = int
     }
 
