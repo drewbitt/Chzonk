@@ -22,8 +22,14 @@ open class ReaderBaseActivity : BaseActivity() {
         title = currentBook.title
     }
 
-    protected fun populateList() {
-        viewModel.createList(currentBook)
+
+    protected fun populateSinglePanelList() {
+        viewModel.setSingleList(viewModel.createList(currentBook))
+    }
+
+    protected fun populateDualPanelList() {
+        // for now, only single
+        viewModel.setSingleList(viewModel.createList(currentBook))
     }
 
 /*    protected fun finishBook() {

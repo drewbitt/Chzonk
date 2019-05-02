@@ -2,6 +2,7 @@ package com.teamb.chzonk.ui.reader
 
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.teamb.chzonk.DaggerApp
+import com.teamb.chzonk.Settings
 import com.teamb.chzonk.data.ReaderViewModel
 import com.teamb.chzonk.data.ViewModel
 import javax.inject.Inject
@@ -22,9 +23,13 @@ class ReaderComicAdapter internal constructor(private val readerComicActivity: R
 
     override fun getItem(position: Int): ReaderComicFragment {
         val book = readerViewModel.currentBook.value!!
-        val isSingleview = readerViewModel.isSinglePageView.value!!
+        val isSingleview = Settings.DUAL_READER
         // new instance of reader comic fragment but do in a different way
-        return ReaderComicFragment.newInstance(book, position)
+
+        return when (Settings.DUAL_READER) {
+            true -> ReaderComicFragmentDual.newInstance(book, position)
+            false -> ReaderComicFragmentSingle.newInstance(book, position)
+        }
     }
 
     override fun getItemPosition(`object`: Any) = androidx.viewpager.widget.PagerAdapter.POSITION_NONE

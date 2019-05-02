@@ -11,9 +11,16 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
 
     private val readerList = mutableListOf<Page>()
 
-    internal fun setReaderListType() = when (Settings.DUAL_READER) {
+    internal fun setReaderListType() = /* when (Settings.DUAL_READER) {
         true -> setReaderList(dualPaneList.sortByRtl())
         false -> setReaderList(singlePaneList)
+        }
+        */
+    setReaderList(singlePaneList)
+
+    internal fun getReaderTrueIndexAt(position: Int): Int {
+        val url = readerList.getPageAt(position)
+        return singlePaneList.getPositionByUrl(url)
     }
 
     // single
@@ -26,7 +33,7 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
         singlePaneList.addAll(list)
     }
 
-    // dual
+    /*// dual
     private val dualPaneList = mutableListOf<Page>()
 
     internal fun setDualPaneList(list: List<Page>) {
@@ -35,6 +42,7 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
     }
 
     internal fun isReaderDualPaneListEmpty() = dualPaneList.isEmpty()
+    */
 
     private fun setReaderList(list: List<Page>) {
         readerList.clear()
@@ -106,19 +114,35 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
         //rtl mode needs to switch currentPage positions if non-single
         forEach {
             if (it.page1 != Constants.KEY_SINGLE_PAGE) {
-                val pageUrlList = mutableListOf<String>()
-                pageUrlList.add(it.page0)
-                pageUrlList.add(it.page1)
+                val pageList = mutableListOf<String>()
+                pageList.add(it.page0)
+                pageList.add(it.page1)
 
                 when (Settings.RTL) {
-                    true -> pageUrlList.sortByDescending { it }
-                    false -> pageUrlList.sortBy { it }
+                    true -> pageList.sortByDescending { it }
+                    false -> pageList.sortBy { it }
                 }
 
-                it.page0 = pageUrlList[0]
-                it.page1 = pageUrlList[1]
+                it.page0 = pageList[0]
+                it.page1 = pageList[1]
             }
         }
         return this
+    }
+
+    private fun List<Page>.getPageAt(position: Int): String {
+        forEachIndexed { index, page ->
+            if (index == position) return page.page0
+        }
+        Timber.e("Failed to get url at position: position[$position]")
+        return ""
+    }
+
+
+    private fun List<Page>.getPositionByUrl(pos: String): Int {
+        forEachIndexed { index, page ->
+            if (page.page0 == pos || page.page1 == pos) return index
+        }
+        return 0
     }
 }

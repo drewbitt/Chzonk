@@ -9,13 +9,8 @@ class ReaderViewModel : ViewModel() {
 
     val currentBook: MutableLiveData<Book> = MutableLiveData()
     val nextPageToShow: MutableLiveData<Int> = MutableLiveData(0)
-    val isSinglePageView: MutableLiveData<Boolean> = MutableLiveData(true)
     val currentPage: MutableLiveData<Int> = MutableLiveData(0)
     val layoutDirection: MutableLiveData<Int> = MutableLiveData(0)
-
-    internal fun getIsSinglePageView() : LiveData<Boolean> {
-        return isSinglePageView
-    }
 
     internal fun getCurrentPage() : LiveData<Int> {
         return currentPage

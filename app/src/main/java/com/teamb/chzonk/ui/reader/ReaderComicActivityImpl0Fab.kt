@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.teamb.chzonk.R
+import com.teamb.chzonk.Settings
 import com.teamb.chzonk.data.ReaderViewModel
 
 @SuppressLint("Registered")
@@ -15,7 +16,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
     protected lateinit var readerViewModel: ReaderViewModel
     protected var fabPostion: Int = 0
-    protected val showRTLFAB: Boolean = true
+    protected val showRTLFAB: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,6 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
             menu.expand()
         }
     }
-
 
     protected fun setUpProgressFAB() {
         val faba = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
@@ -109,9 +109,10 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
     }
 
     protected fun onPageClick() {
-        readerViewModel.isSinglePageView.value = !readerViewModel.isSinglePageView.value!!
+        Settings.DUAL_READER = !Settings.DUAL_READER
+        sharedPrefsHelper.saveDualPane()
         val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
-        if (!readerViewModel.isSinglePageView.value!!) {
+        if (!Settings.DUAL_READER) {
             faba.setImageDrawable(getDrawable(R.drawable.ic_filter_1_black_24dp))
             faba.title = "Single Page View"
         } else {

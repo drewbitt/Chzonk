@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import com.teamb.chzonk.R
+import com.teamb.chzonk.Settings
 
 @SuppressLint("Registered")
 open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
 
     private lateinit var readerComicAdapter: ReaderComicAdapter
-    private lateinit var viewPager: ViewPager
+    protected lateinit var viewPager: ReaderViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,44 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         readerViewModel.getCurrentPage().observe(this, Observer { setUpProgressBar(it) })
         readerViewModel.getLayoutDirection().observe(this,
             Observer { findViewById<RelativeLayout>(R.id.reader_layout).layoutDirection = it })
+    }
 
+    private fun onListChanged() {
+        viewModel.setReaderListType()
+        viewPager.adapter = null
+        viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
+        /*val position = viewModel.getReaderTrueIndexAt(currentBook.currentPage)
+        viewPager.currentItem = position
+        */
+        viewPager.currentItem= currentBook.currentPage
+    }
+
+    private fun startSingleMode() {
+        populateSinglePanelList()
+        onListChanged()
+    }
+
+    private fun startDualMode() {
+        populateDualPanelList()
+        onListChanged()
+    }
+
+    private fun populateList() {
+        when (Settings.DUAL_READER) {
+            true -> startDualMode()
+            false -> startSingleMode()
+        }
+    }
+
+    protected fun refreshViewpager() {
+        try {
+            val position = viewPager.currentItem
+            viewPager.adapter = null
+            viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
+            viewPager.currentItem = position
+        } catch (e: Exception) {
+            //do nothing
+        }
     }
 
     private fun setUpProgressBar(int: Int) {
