@@ -1,6 +1,7 @@
 package com.teamb.chzonk.data
 import androidx.lifecycle.ViewModel
 import com.teamb.chzonk.data.model.Book
+import com.teamb.chzonk.data.model.Page
 import com.teamb.chzonk.data.repository.FileRepository
 import com.teamb.chzonk.data.repository.LocallibRepository
 import com.teamb.chzonk.data.repository.ReaderRepository
@@ -21,6 +22,14 @@ class ViewModel(
     internal fun createList(book: Book) = readerRepository.createLocalList(book)
 
     internal fun getReaderListSize(book: Book) = readerRepository.getReaderListSize(book)
+
+    internal fun getSingleList() = readerRepository.getSinglePaneList()
+
+    internal fun setSingleList(list: List<Page>) = readerRepository.setSinglePaneList(list)
+
+    internal fun setDualList(list: List<Page>) = readerRepository.setDualPaneList(list)
+
+    internal fun setReaderListType() = readerRepository.setReaderListType()
 
     // locallib repository
 
