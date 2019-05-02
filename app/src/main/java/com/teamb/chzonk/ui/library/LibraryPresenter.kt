@@ -13,14 +13,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
+import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
+import com.teamb.chzonk.Settings
 import com.teamb.chzonk.data.ViewModel
+import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.GlideModel
+import com.teamb.chzonk.data.room.FileDao
 import com.teamb.chzonk.ui.library.model.Card
+import com.teamb.chzonk.util.toBook
+import com.teamb.chzonk.util.toComicFile
+import org.jetbrains.anko.doAsync
+import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.style.DefaultCardTheme) : Presenter() {
@@ -32,6 +41,7 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
     }
     @Inject
     lateinit var viewModel: ViewModel
+    @Inject lateinit var fileDao: FileDao
 
     override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
         val cardView = onCreateView()
@@ -68,14 +78,15 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
             builder.setView(popupView)
                 .setPositiveButton("Save") { dialog, which ->
                     card.book.isFinished = isFinished.isChecked
-                    viewModel.updateFinished(card.book)
                     if (card.book.isFinished) {
                         cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
                         cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
+                        viewModel.updateFinished(card.book)
                     } else {
                         cardView.mainImageView.colorFilter = null
                         cardView.mainImageView.foreground = null
-
+                        card.book.isFinished = false
+                        viewModel.updateFinished(card.book)
                     }
                 }
                 .setNegativeButton(
@@ -96,6 +107,7 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
             isFinished.isChecked = card.book.isFinished
 
             builder.show()
+            viewModel.refreshFiles(Settings.DOWNLOAD_DIRECTORY, true)
             return@OnLongClickListener true
         })
     }

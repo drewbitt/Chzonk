@@ -44,11 +44,16 @@ class LibraryFragment : RowsSupportFragment() {
     }
 
     private fun createRows() {
+        var a = 0
         viewModel.getFileListLiveData().observe(this, Observer { result ->
             result?.let {
                 var cardRow = fillCardRow(result.fileListToBookList())
-                cardRow = sortCardRow(cardRow)
-                createCardRow(cardRow)
+                a = a+1 // Last minute minor fix in the cardrow - calls createCardRow
+                // multiple times when showing a dialog (marking as read)
+                if (a==1) {
+                    cardRow = sortCardRow(cardRow)
+                    createCardRow(cardRow)
+                }
             }
         })
     }
