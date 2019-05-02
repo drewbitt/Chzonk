@@ -90,8 +90,6 @@ open class ReaderComicFragment : Fragment() {
             0
         }
 
-        // load GlideImage
-        // needs reference to imageView
         val imageView1 = view.findViewById<View>(R.id.imageView1)
         val imageView2 = view.findViewById<View>(R.id.imageView2)
         imageView2.visibility = GONE

@@ -1,5 +1,7 @@
 package com.teamb.chzonk.data.repository
 
+import com.teamb.chzonk.Constants
+import com.teamb.chzonk.Settings
 import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.Page
 import com.teamb.locallib.Main
@@ -68,5 +70,25 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
             "9" -> "09"
             else -> it.page0
         }
+    }
+
+    private fun MutableList<Page>.sortByRtl(): MutableList<Page> {
+        //rtl mode needs to switch currentPage positions if non-single
+        forEach {
+            if (it.page1 != Constants.KEY_SINGLE_PAGE) {
+                val pageUrlList = mutableListOf<String>()
+                pageUrlList.add(it.page0)
+                pageUrlList.add(it.page1)
+
+                when (Settings.RTL) {
+                    true -> pageUrlList.sortByDescending { it }
+                    false -> pageUrlList.sortBy { it }
+                }
+
+                it.page0 = pageUrlList[0]
+                it.page1 = pageUrlList[1]
+            }
+        }
+        return this
     }
 }
