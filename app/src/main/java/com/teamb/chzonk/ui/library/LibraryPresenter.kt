@@ -53,6 +53,9 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
         if (card.book.isFinished) {
             cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
             cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
+        }else{
+            cardView.mainImageView.colorFilter = null
+            cardView.mainImageView.foreground = null
         }
 
         viewHolder.view.setOnLongClickListener(View.OnLongClickListener {
@@ -67,9 +70,15 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
                 .setPositiveButton("Save") { dialog, which ->
                     card.book.isFinished = isFinished.isChecked
                     viewModel.updateFinished(card.book)
-                    cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
-                    cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
-                    cardView.refreshDrawableState()
+                    if(card.book.isFinished) {
+                        cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
+                        cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
+                        cardView.refreshDrawableState()
+                    }else{
+                        cardView.mainImageView.colorFilter = null
+                        cardView.mainImageView.foreground = null
+                        cardView.refreshDrawableState()
+                    }
                 }
                 .setNegativeButton(
                     "Cancel"
