@@ -37,7 +37,6 @@ import androidx.leanback.widget.PageRow
 import androidx.leanback.widget.Presenter
 import androidx.leanback.widget.Row
 import androidx.leanback.widget.RowPresenter
-import androidx.leanback.widget.TitleViewAdapter
 import com.teamb.chzonk.DaggerApp
 import com.teamb.chzonk.R
 import com.teamb.chzonk.Settings
