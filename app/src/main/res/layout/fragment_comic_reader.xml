@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_centerInParent="true">
+              android:layout_height="match_parent">
 
-    <ImageView android:padding="@dimen/dp_10"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:id="@+id/imageView1"/>
+    <include layout="@layout/image_view"/>
 
-    <ImageView
-            android:padding="@dimen/dp_10"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/imageView2"
-            android:visibility="gone"/>
 
-</LinearLayout>
+
+</RelativeLayout>
+
