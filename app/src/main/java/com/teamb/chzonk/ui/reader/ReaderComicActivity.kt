@@ -3,6 +3,7 @@ package com.teamb.chzonk.ui.reader
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
@@ -15,6 +16,7 @@ import com.teamb.chzonk.R
 import com.teamb.chzonk.data.ReaderViewModel
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import kotlin.math.min
 
 @SuppressLint("Registered")
 open class ReaderComicActivity : ReaderBaseActivity() {
@@ -23,6 +25,9 @@ open class ReaderComicActivity : ReaderBaseActivity() {
     private lateinit var viewPager: ViewPager
     private lateinit var readerViewModel: ReaderViewModel
     private val showRTLFAB: Boolean = false
+    private var fabPostion: Int = 0
+    private var upPostion: Int = 0
+    private var downPostion: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +50,41 @@ open class ReaderComicActivity : ReaderBaseActivity() {
 
     }
 
-    private fun setUpProgressFAB() {
-        val faba = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
-        faba.setOnClickListener{onProgressBarClick(faba)}
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_ENTER -> {enterCodeFun(fabPostion)}
+            KeyEvent.KEYCODE_DPAD_UP -> { if (fabPostion == 0) fabPostion = 1 else fabPostion = 2 }
+            KeyEvent.KEYCODE_DPAD_DOWN -> {if (fabPostion == 2) fabPostion = 1 else fabPostion = 0}
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
-    private fun onProgressBarClick(fab: FloatingActionButton) {
+    private fun enterCodeFun(numOfPresses: Int) {
+        when (numOfPresses) {
+            0 -> {expandOrCollapseMenu()}
+            1 -> { onProgressBarClick() }
+            2 -> { onPageClick() }
+        }
+    }
+
+    private fun expandOrCollapseMenu() {
+        fabPostion = 0
+        val menu = findViewById<FloatingActionsMenu>(R.id.multiple_actions) as FloatingActionsMenu
+        if (menu.isExpanded) {
+            menu.collapse()
+        } else {
+            menu.expand()
+        }
+    }
+
+
+    private fun setUpProgressFAB() {
+        val faba = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
+        faba.setOnClickListener{onProgressBarClick()}
+    }
+
+    private fun onProgressBarClick() {
+        val fab = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
         val progressBar = findViewById<ProgressBar>(R.id.determinateBar)
         if (progressBar.visibility == VISIBLE) {
             progressBar.visibility = GONE
@@ -64,7 +98,7 @@ open class ReaderComicActivity : ReaderBaseActivity() {
 
     private fun setUpPageViewFAB() {
         val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
-        faba.setOnClickListener{onPageClick(!readerViewModel.isSinglePageView.value!!)}
+        faba.setOnClickListener{onPageClick()}
     }
 
     private fun setUpRTLFAB() {
@@ -92,10 +126,10 @@ open class ReaderComicActivity : ReaderBaseActivity() {
         collapseFABMenu()
     }
 
-    private fun onPageClick(boolean: Boolean) {
-        readerViewModel.isSinglePageView.value = boolean
+    private fun onPageClick() {
+        readerViewModel.isSinglePageView.value = !readerViewModel.isSinglePageView.value!!
         val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
-        if (!boolean) {
+        if (!readerViewModel.isSinglePageView.value!!) {
             faba.setImageDrawable(getDrawable(R.drawable.ic_filter_1_black_24dp))
             faba.title = "Single Page View"
         } else {
@@ -106,6 +140,7 @@ open class ReaderComicActivity : ReaderBaseActivity() {
     }
 
     private fun collapseFABMenu() {
+        fabPostion = 0
         val fabMenu = findViewById<FloatingActionsMenu>(R.id.multiple_actions)
         fabMenu.collapse()
     }
