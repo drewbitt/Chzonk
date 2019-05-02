@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Chzonk</string>
-    <string name="title_activity_main">Leanback MainActivity Title</string>
+    <string name="title_activity_main">RedDoor Comic Viewer</string>
     <string name="browse_title"><![CDATA[Chzonk]]></string>
     <string name="error_fragment">Error Fragment</string>
     <string name="personal_settings">Personal Settings</string>

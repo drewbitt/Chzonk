@@ -29,8 +29,16 @@ open class ReaderBaseActivity : BaseActivity() {
 /*    protected fun finishBook() {
         currentBook.isFinished = true // is that enough?
     }*/
+
+    protected open fun setImage() {
+        // override in children
+    }
     
     private fun setProgress() {
         // based off of current page #
+    }
+
+    protected fun setPageNumberText() {
+        // set the page number text bindview
     }
 }

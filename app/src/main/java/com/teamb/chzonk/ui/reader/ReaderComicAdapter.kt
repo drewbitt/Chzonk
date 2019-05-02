@@ -11,19 +11,17 @@ class ReaderComicAdapter internal constructor(private val readerComicActivity: R
 ) :
     FragmentStatePagerAdapter(readerComicActivity.supportFragmentManager) {
 
+    @Inject
+    lateinit var viewModel: ViewModel
+
     init {
         DaggerApp.appComponent.inject(this)
     }
 
-    @Inject
-    lateinit var viewModel: ViewModel
-
     override fun getCount(): Int = viewModel.getReaderListSize(readerComicActivity.currentBook)
 
     override fun getItem(position: Int): ReaderComicFragment {
-        val book = readerViewModel.currentBook.value!!
-        val isSingleview = readerViewModel.isSinglePageView.value!!
-        // new instance of reader comic fragment but do in a different way
+        val book = readerComicActivity.currentBook
         return ReaderComicFragment.newInstance(book, position)
     }
 

@@ -45,4 +45,6 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         super.onNewIntent(intent)
         populateList()
     }
+
+
 }

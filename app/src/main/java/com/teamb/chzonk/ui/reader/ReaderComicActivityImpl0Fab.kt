@@ -15,7 +15,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
     protected lateinit var readerViewModel: ReaderViewModel
     protected var fabPostion: Int = 0
-    protected val showRTLFAB: Boolean = true
+    protected val showRTLFAB: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

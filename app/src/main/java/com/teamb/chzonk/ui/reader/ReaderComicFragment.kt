@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.teamb.chzonk.Constants.ARG_BOOK
 import com.teamb.chzonk.Constants.ARG_POSITION
 import com.teamb.chzonk.DaggerApp
@@ -25,13 +26,13 @@ import javax.inject.Inject
 
 open class ReaderComicFragment : Fragment() {
 
+
     @Inject
     lateinit var viewModel: ViewModel
 
     lateinit var book: Book
     lateinit var readerComicActivity: ReaderComicActivity
     lateinit var readerViewModel: ReaderViewModel
-    private var isOnePageSetUp: Boolean = false
 
     protected var position = 0
 
