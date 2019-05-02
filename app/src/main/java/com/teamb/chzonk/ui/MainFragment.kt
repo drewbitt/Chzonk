@@ -116,7 +116,6 @@ class MainFragment : BrowseSupportFragment() {
         val mGridPresenter = GridItemPresenter()
         val gridRowAdapter = ArrayObjectAdapter(mGridPresenter)
         gridRowAdapter.add(getString(R.string.refresh_library))
-        gridRowAdapter.add(getString(R.string.error_fragment))
         gridRowAdapter.add(resources.getString(R.string.personal_settings))
 
         rowsAdapter.add(pageRow1)
@@ -150,10 +149,6 @@ class MainFragment : BrowseSupportFragment() {
         ) {
             if (item is String) {
                 when {
-                    item.contains(getString(R.string.error_fragment)) -> {
-                        val intent = Intent(context, BrowseErrorActivity::class.java)
-                        startActivity(intent)
-                    }
                     item.contains(getString(R.string.personal_settings)) -> {
                         val intent = Intent(context, SettingsActivity::class.java)
                         val bundle =

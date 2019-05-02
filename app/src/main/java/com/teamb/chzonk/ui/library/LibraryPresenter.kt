@@ -72,11 +72,10 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
                     if (card.book.isFinished) {
                         cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
                         cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
-                        cardView.refreshDrawableState()
                     } else {
                         cardView.mainImageView.colorFilter = null
                         cardView.mainImageView.foreground = null
-                        cardView.refreshDrawableState()
+
                     }
                 }
                 .setNegativeButton(
