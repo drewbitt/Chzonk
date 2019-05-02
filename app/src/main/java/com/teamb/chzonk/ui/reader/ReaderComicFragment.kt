@@ -85,6 +85,8 @@ open class ReaderComicFragment : Fragment() {
             0
         }
 
+        isFinishedBook(page0)
+
         val imageView1 = view.findViewById<View>(R.id.imageView1)
         val imageView2 = view.findViewById<View>(R.id.imageView2)
         imageView2.visibility = GONE
@@ -101,6 +103,8 @@ open class ReaderComicFragment : Fragment() {
         val imageView2 = view.findViewById<View>(R.id.imageView2)
         imageView2.visibility = VISIBLE
         (imageView1 as ImageView).loadImage(GlideModel(book, page0, false))
+
+        isFinishedBook(page0 + 1)
 
         if (page0 + 1 < viewModel.getReaderListSize(book)) {
             imageView2.visibility = VISIBLE
@@ -132,6 +136,12 @@ open class ReaderComicFragment : Fragment() {
             readerViewModel.nextPageToShow.value = getPage0().toInt() + 2
         } else {
             readerViewModel.nextPageToShow.value = getPage0().toInt() + 1
+        }
+    }
+
+    private fun isFinishedBook(page: Int) {
+        if (page == viewModel.getReaderListSize(book) - 1) {
+//            viewModel.updateFinished(book)
         }
     }
 
