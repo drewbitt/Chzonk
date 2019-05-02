@@ -60,7 +60,6 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
 
         viewHolder.view.setOnLongClickListener(View.OnLongClickListener {
             val popupView = LayoutInflater.from(mContext).inflate(R.layout.popup_window, null)
-            val bookTitle = card.book.title
             val image = popupView.findViewById<ImageView>(R.id.comicImage)
             val title = popupView.findViewById<View>(R.id.title) as TextView
             val isFinished = popupView.findViewById<View>(R.id.readBookCheck) as CheckBox
