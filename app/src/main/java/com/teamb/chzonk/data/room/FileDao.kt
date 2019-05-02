@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.teamb.chzonk.data.model.ComicFile
 
 @Dao
@@ -26,4 +27,7 @@ interface FileDao {
     // currently only used in testing
     @Query("DELETE FROM ComicFile")
     fun deleteFilesAll()
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateFile(file: ComicFile)
 }

@@ -9,6 +9,7 @@ import com.teamb.chzonk.util.AppExecutors
 import com.teamb.chzonk.util.DeleteFile
 import com.teamb.chzonk.util.GetList
 import com.teamb.chzonk.util.InsertFile
+import com.teamb.chzonk.util.UpdateFile
 import com.teamb.chzonk.util.localListOfComicFiles
 import com.teamb.chzonk.util.toBook
 import com.teamb.chzonk.util.toComicFile
@@ -30,6 +31,7 @@ open class FileRepository {
     internal fun addBooks(list: List<Book>) = list.forEach {
         addBook(it)
     }
+    internal fun updateFinished(book: Book) = UpdateFile(book)
 
     internal fun getList() = GetList().liveData // MutableLiveData<List<Book>>()
 

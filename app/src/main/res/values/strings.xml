@@ -17,4 +17,6 @@
     <!--Directory Chooser Dialog-->
     <string name="title_choose_folder">Choose a Folder</string>
     <string name="refresh_library">Refresh library</string>
+    <string name="book_title">Title:</string>
+    <string name="finished_reading">Finished Reading:</string>
 </resources>

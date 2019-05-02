@@ -47,6 +47,9 @@ class ViewModel(
     internal fun addBooks(list: List<Book>) {
         fileRepository.addBooks(list)
     }
+    internal fun updateFinished(book: Book){
+        fileRepository.updateFinished(book)
+    }
 
     internal fun deleteFile(book: Book) = fileRepository.deleteFile(book)
 

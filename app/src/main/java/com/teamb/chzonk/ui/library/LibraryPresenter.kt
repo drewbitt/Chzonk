@@ -1,6 +1,6 @@
 package com.teamb.chzonk.ui.library
 
-import android.app.Dialog
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -8,17 +8,23 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.TextView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.obsez.android.lib.filechooser.internals.FileUtil
 import com.teamb.chzonk.R
+import com.teamb.chzonk.data.ViewModel
 import com.teamb.chzonk.data.model.GlideModel
 import com.teamb.chzonk.ui.library.model.Card
-import org.jetbrains.anko.sdk27.coroutines.onLongClick
-
-
+import org.jetbrains.anko.image
+import javax.inject.Inject
 
 class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.style.DefaultCardTheme) : Presenter() {
     private val mContext: Context
@@ -26,6 +32,8 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
     init {
         mContext = ContextThemeWrapper(context, cardThemeResId)
     }
+    @Inject
+    lateinit var viewModel: ViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
         val cardView = onCreateView()
@@ -48,6 +56,48 @@ class LibraryPresenter constructor(context: Context, cardThemeResId: Int = R.sty
             cardView.mainImageView.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
             cardView.mainImageView.foreground = mContext.getDrawable(R.drawable.checked)
         }
+
+        viewHolder.view.setOnLongClickListener(View.OnLongClickListener {
+            val popupView = LayoutInflater.from(mContext).inflate(R.layout.popup_window, null)
+//            val checkBox = popupView.findViewById(R.id.readBookCheck) as CheckBox
+//            checkBox.setChecked(card.book.is)
+//            themeSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+//                changeTheme(
+//                    isChecked
+//                )
+//            })
+            val bookTitle = card.book.title
+//            val isFinished = card.book.isFinished
+            val image = popupView.findViewById<ImageView>(R.id.comicImage)
+            val title = popupView.findViewById<View>(R.id.title) as TextView
+            val isFinished = popupView.findViewById<View>(R.id.readBookCheck) as CheckBox
+
+            val builder = AlertDialog.Builder(viewHolder.view.context)
+            builder.setView(popupView)
+                .setPositiveButton("Save") { dialog, which ->
+                    card.book.isFinished = isFinished.isChecked
+                    viewModel.updateFinished(card.book)
+                }
+                .setNegativeButton(
+                    "Cancel"
+                ) { dialog, which -> dialog.cancel() }
+
+            builder.setTitle("Book Info")
+            builder.create()
+
+            // Pass book title and isFinished to appropriate box on alert dialog
+            Glide.with(viewHolder.view.context)
+                .load(GlideModel(card.book, 0, true))
+                .apply(
+                    RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                .into(image)
+            title.text = card.book.title
+            isFinished.isChecked = card.book.isFinished
+
+            builder.show()
+            return@OnLongClickListener true
+        })
     }
 
     override fun onUnbindViewHolder(viewHolder: ViewHolder?) = onUnbindViewHolder(viewHolder?.view as ImageCardView)
