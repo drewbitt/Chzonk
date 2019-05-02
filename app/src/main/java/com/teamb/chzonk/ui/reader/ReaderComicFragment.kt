@@ -50,8 +50,12 @@ open class ReaderComicFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
-    Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState:
+            Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Creates the view controlled by the fragment
         val view = inflater.inflate(R.layout.fragment_comic_reader, container, false)
@@ -69,7 +73,6 @@ open class ReaderComicFragment : Fragment() {
 
         readerViewModel.currentPage.value = position
         // loadImages(view!!)
-
     }
 
     protected fun getPage0() = viewModel.getReaderItemAt(book, position)?.page0 ?: ""
@@ -80,7 +83,7 @@ open class ReaderComicFragment : Fragment() {
         val requestOptions = RequestOptions()
             .format(DecodeFormat.PREFER_RGB_565)
             .fitCenter()
-            //.override(Target.SIZE_ORIGINAL)
+            // .override(Target.SIZE_ORIGINAL)
             .skipMemoryCache(true)
 
         Glide.with(this@ReaderComicFragment)
@@ -96,9 +99,7 @@ open class ReaderComicFragment : Fragment() {
         } else {
             readerViewModel.nextPageToShow.value = getPage0().toInt() + 1
         }
-
     }
-
 
     companion object {
         fun newInstance(book: Book, position: Int): ReaderComicFragment {
@@ -111,4 +112,3 @@ open class ReaderComicFragment : Fragment() {
         }
     }
 }
-

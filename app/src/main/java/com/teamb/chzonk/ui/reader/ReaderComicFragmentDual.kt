@@ -8,7 +8,7 @@ import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.GlideModel
 import kotlinx.android.synthetic.main.image_view.*
 
-class ReaderComicFragmentDual: ReaderComicFragment() {
+class ReaderComicFragmentDual : ReaderComicFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -18,7 +18,7 @@ class ReaderComicFragmentDual: ReaderComicFragment() {
 
         // would determine if needs to be single here ideally
         imageView1.loadImage(GlideModel(book, page0, false))
-        imageView1.loadImage(GlideModel(book, page0+1, false))
+        imageView1.loadImage(GlideModel(book, page0 + 1, false))
     }
 
     companion object {

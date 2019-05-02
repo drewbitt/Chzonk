@@ -19,8 +19,8 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
     setReaderList(singlePaneList)
 
     internal fun getReaderTrueIndexAt(position: Int): Int {
-        val url = readerList.getPageAt(position)
-        return singlePaneList.getPositionByUrl(url)
+        val pos = readerList.getPageAt(position)
+        return singlePaneList.getPositionByPos(pos)
     }
 
     // single
@@ -111,7 +111,7 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
     }
 
     private fun MutableList<Page>.sortByRtl(): MutableList<Page> {
-        //rtl mode needs to switch currentPage positions if non-single
+        // rtl mode needs to switch currentPage positions if non-single
         forEach {
             if (it.page1 != Constants.KEY_SINGLE_PAGE) {
                 val pageList = mutableListOf<String>()
@@ -138,8 +138,7 @@ class ReaderRepository(private val mainLocal: Main) { // includes functions like
         return ""
     }
 
-
-    private fun List<Page>.getPositionByUrl(pos: String): Int {
+    private fun List<Page>.getPositionByPos(pos: String): Int {
         forEachIndexed { index, page ->
             if (page.page0 == pos || page.page1 == pos) return index
         }

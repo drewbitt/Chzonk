@@ -24,5 +24,4 @@ abstract class InjectorsModule {
     @ContributesAndroidInjector
     @ReaderScope
     abstract fun readerBaseActivity(): ReaderBaseActivity
-
 }

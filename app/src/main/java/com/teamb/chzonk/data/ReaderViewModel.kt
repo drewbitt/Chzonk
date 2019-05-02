@@ -12,25 +12,19 @@ class ReaderViewModel : ViewModel() {
     val currentPage: MutableLiveData<Int> = MutableLiveData(0)
     val layoutDirection: MutableLiveData<Int> = MutableLiveData(0)
 
-    internal fun getCurrentPage() : LiveData<Int> {
+    internal fun getCurrentPage(): LiveData<Int> {
         return currentPage
     }
 
-    internal fun getLayoutDirection() : LiveData<Int> {
+    internal fun getLayoutDirection(): LiveData<Int> {
         return layoutDirection
     }
 
-    internal fun getCurrentBook() : LiveData<Book> {
+    internal fun getCurrentBook(): LiveData<Book> {
         return currentBook
     }
 
-    internal fun getNextPageToShow() : LiveData<Int> {
+    internal fun getNextPageToShow(): LiveData<Int> {
         return nextPageToShow
     }
-
-
-
-
-
-
 }

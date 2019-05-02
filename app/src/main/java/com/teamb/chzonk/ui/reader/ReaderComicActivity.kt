@@ -19,7 +19,7 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         super.onCreate(savedInstanceState)
         populateList()
         viewPager = findViewById(R.id.viewPager)
-        readerComicAdapter = ReaderComicAdapter( this@ReaderComicActivity, readerViewModel)
+        readerComicAdapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
         viewPager.adapter = readerComicAdapter
 
         readerViewModel.currentBook.value = currentBook
@@ -40,7 +40,7 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         /*val position = viewModel.getReaderTrueIndexAt(currentBook.currentPage)
         viewPager.currentItem = position
         */
-        viewPager.currentItem= currentBook.currentPage
+        viewPager.currentItem = currentBook.currentPage
     }
 
     private fun startSingleMode() {
@@ -67,7 +67,7 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
             viewPager.adapter = ReaderComicAdapter(this@ReaderComicActivity, readerViewModel)
             viewPager.currentItem = position
         } catch (e: Exception) {
-            //do nothing
+            // do nothing
         }
     }
 
@@ -76,7 +76,6 @@ open class ReaderComicActivity : ReaderComicActivityImpl1Hardware() {
         progressBar.max = viewModel.getReaderListSize(currentBook)
         progressBar.progress = int
     }
-
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

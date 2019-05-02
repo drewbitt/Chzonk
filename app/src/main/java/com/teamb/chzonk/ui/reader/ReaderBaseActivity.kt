@@ -22,7 +22,6 @@ open class ReaderBaseActivity : BaseActivity() {
         title = currentBook.title
     }
 
-
     protected fun populateSinglePanelList() {
         viewModel.setSingleList(viewModel.createList(currentBook))
     }
@@ -35,7 +34,7 @@ open class ReaderBaseActivity : BaseActivity() {
 /*    protected fun finishBook() {
         currentBook.isFinished = true // is that enough?
     }*/
-    
+
     private fun setProgress() {
         // based off of current page #
     }

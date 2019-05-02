@@ -26,7 +26,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
     protected fun colorSelectedFab(fabPosition: Int) {
         val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
         val fabc = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
-        when(fabPosition) {
+        when (fabPosition) {
             1 -> {
                 fabc.alpha = 0.5.toFloat()
                 faba.alpha = 1.toFloat()
@@ -44,7 +44,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
     protected fun enterCodeFun(numOfPresses: Int) {
         when (numOfPresses) {
-            0 -> {expandOrCollapseMenu()}
+            0 -> { expandOrCollapseMenu() }
             1 -> { onProgressBarClick() }
             2 -> { onPageClick() }
         }
@@ -62,7 +62,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
     protected fun setUpProgressFAB() {
         val faba = findViewById<FloatingActionButton>(R.id.action_c) as FloatingActionButton
-        faba.setOnClickListener{onProgressBarClick()}
+        faba.setOnClickListener { onProgressBarClick() }
     }
 
     protected fun onProgressBarClick() {
@@ -80,7 +80,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
 
     protected fun setUpPageViewFAB() {
         val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
-        faba.setOnClickListener{onPageClick()}
+        faba.setOnClickListener { onPageClick() }
     }
 
     protected fun setUpRTLFAB() {
@@ -94,10 +94,9 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
         } else {
             fabb.visibility = View.GONE
         }
-
     }
 
-    protected fun onRTLClick(int: Int) {
+    private fun onRTLClick(int: Int) {
         readerViewModel.layoutDirection.value = int
         val faba = findViewById<FloatingActionButton>(R.id.action_b) as FloatingActionButton
         if (int == 0) {
@@ -108,7 +107,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
         collapseFABMenu()
     }
 
-    protected fun onPageClick() {
+    private fun onPageClick() {
         Settings.DUAL_READER = !Settings.DUAL_READER
         sharedPrefsHelper.saveDualPane()
         val faba = findViewById<FloatingActionButton>(R.id.action_a) as FloatingActionButton
@@ -122,7 +121,7 @@ open class ReaderComicActivityImpl0Fab : ReaderBaseActivity() {
         collapseFABMenu()
     }
 
-    protected fun collapseFABMenu() {
+    private fun collapseFABMenu() {
         fabPostion = 0
         val fabMenu = findViewById<FloatingActionsMenu>(R.id.multiple_actions)
         fabMenu.collapse()

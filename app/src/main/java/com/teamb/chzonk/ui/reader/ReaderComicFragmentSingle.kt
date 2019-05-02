@@ -7,7 +7,7 @@ import com.teamb.chzonk.data.model.Book
 import com.teamb.chzonk.data.model.GlideModel
 import kotlinx.android.synthetic.main.image_view.*
 
-class ReaderComicFragmentSingle: ReaderComicFragment() {
+class ReaderComicFragmentSingle : ReaderComicFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,5 +27,4 @@ class ReaderComicFragmentSingle: ReaderComicFragment() {
             }
         }
     }
-
 }

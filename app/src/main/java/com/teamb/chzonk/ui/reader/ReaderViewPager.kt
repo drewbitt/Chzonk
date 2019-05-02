@@ -5,8 +5,7 @@ import android.util.AttributeSet
 import com.booking.rtlviewpager.RtlViewPager
 import com.teamb.chzonk.Settings
 
-class ReaderViewPager(context: Context?, attrs: AttributeSet?): RtlViewPager(context, attrs) {
+class ReaderViewPager(context: Context?, attrs: AttributeSet?) : RtlViewPager(context, attrs) {
 
     override fun isRtl() = Settings.RTL
-
 }
