@@ -1,4 +1,4 @@
-# Chzonk
+# RedDoor Comic Book Viewer
 
 Android TV Comic Book Reader
 
